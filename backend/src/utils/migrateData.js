@@ -58,8 +58,8 @@ async function migrateData() {
     const pracownicy = await readJsonFile(path.join(dataPath, 'pracownicy.json'));
     for (const pracownik of pracownicy) {
       await db.query(
-        'INSERT INTO pracownicy (id, imie, nazwisko, email, telefon, stanowisko_id, data_zatrudnienia) VALUES ($1, $2, $3, $4, $5, $6, $7) ON CONFLICT (id) DO NOTHING',
-        [pracownik.id, pracownik.imie, pracownik.nazwisko, pracownik.mail, pracownik.telefon, pracownik.stanowisko_id, pracownik.data_zatrudnienia]
+        'INSERT INTO pracownicy (id, imie, nazwisko, email, telefon, stanowisko_id, uzytkownik_id, data_zatrudnienia) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ON CONFLICT (id) DO NOTHING',
+        [pracownik.id, pracownik.imie, pracownik.nazwisko, pracownik.mail, pracownik.telefon, pracownik.stanowisko, pracownik.uzytkownik_id, pracownik.data_zatrudnienia || '2024-01-01']
       );
     }
 
@@ -68,7 +68,7 @@ async function migrateData() {
     const kontakty = await readJsonFile(path.join(dataPath, 'kontakty.json'));
     for (const kontakt of kontakty) {
       await db.query(
-        'INSERT INTO kontakty (id, imie, nazwisko, email, telefon, firma, stanowisko, adres) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ON CONFLICT (id) DO NOTHING',
+        'INSERT INTO kontakty (id, imie, nazwisko, email, telefon, firma, stanowisko_id, adres) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ON CONFLICT (id) DO NOTHING',
         [kontakt.id, kontakt.imie, kontakt.nazwisko, kontakt.mail, kontakt.telefon, kontakt.nazwaFirmy, kontakt.stanowisko, `${kontakt.ulica}, ${kontakt.kodPocztowy} ${kontakt.miasto}`]
       );
     }

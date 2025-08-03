@@ -1,6 +1,6 @@
 [
   {
-    "id": "d1",
+    "id": 1,
     "nazwa": "Flower Paradise",
     "telefon": "+48 123 456 789",
     "mail": "zamowienia@flowerparadise.pl",
@@ -12,7 +12,7 @@
     "nip": "1234567890"
   },
   {
-    "id": "d2",
+    "id": 2,
     "nazwa": "Holland Flowers",
     "telefon": "+48 234 567 890",
     "mail": "info@hollandflowers.pl",
@@ -24,7 +24,7 @@
     "nip": "9876543210"
   },
   {
-    "id": "d3",
+    "id": 3,
     "nazwa": "Anna Kowalska",
     "telefon": "+48 345 678 901",
     "mail": "kontakt@rainbowblooms.pl",
@@ -36,7 +36,7 @@
     "nip": ""
   },
   {
-    "id": "d4",
+    "id": 4,
     "nazwa": "Elegant Flowers",
     "telefon": "+48 456 789 012",
     "mail": "sprzedaz@elegantflowers.pl",
@@ -48,19 +48,19 @@
     "nip": "5555666777"
   },
   {
-    "id": "d5",
+    "id": 5,
     "nazwa": "Seasonal Flowers",
     "telefon": "+48 567 890 123",
     "mail": "biuro@seasonalflowers.pl"
   },
   {
-    "id": "d6",
+    "id": 6,
     "nazwa": "Classic Blooms",
     "telefon": "+48 678 901 234",
     "mail": "zamowienia@classicblooms.pl"
   },
   {
-    "id": "d7",
+    "id": 7,
     "nazwa": "Holland Flowers",
     "telefon": "+48 234 567 890",
     "mail": "info@hollandflowers.pl"

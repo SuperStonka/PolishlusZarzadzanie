@@ -7,7 +7,7 @@
     "wysokosc": 60,
     "cena": 8.50,
     "zdjecie": "/images/produkty_kwiaty/kwiat_01.jpg",
-    "dostawcaId": "d1"
+    "dostawcaId": 1
   },
   {
     "id": 2,
@@ -17,7 +17,7 @@
     "wysokosc": 45,
     "cena": 4.20,
     "zdjecie": "/images/produkty_kwiaty/kwiat_02.jpg",
-    "dostawcaId": "d2"
+    "dostawcaId": 2
   },
   {
     "id": 3,
@@ -27,7 +27,7 @@
     "wysokosc": 35,
     "cena": 6.75,
     "zdjecie": "/images/produkty_kwiaty/kwiat_03.jpg",
-    "dostawcaId": "d3"
+    "dostawcaId": 3
   },
   {
     "id": 4,
@@ -37,7 +37,7 @@
     "wysokosc": 80,
     "cena": 12.30,
     "zdjecie": "/images/produkty_kwiaty/kwiat_04.jpg",
-    "dostawcaId": "d4"
+    "dostawcaId": 4
   },
   {
     "id": 5,
@@ -47,7 +47,7 @@
     "wysokosc": 50,
     "cena": 7.90,
     "zdjecie": "/images/produkty_kwiaty/kwiat_05.jpg",
-    "dostawcaId": "d5"
+    "dostawcaId": 5
   },
   {
     "id": 6,
@@ -57,7 +57,7 @@
     "wysokosc": 30,
     "cena": 5.60,
     "zdjecie": "/images/produkty_kwiaty/kwiat_06.jpg",
-    "dostawcaId": "d6"
+    "dostawcaId": 6
   },
   {
     "id": 7,
@@ -67,7 +67,7 @@
     "wysokosc": 70,
     "cena": 9.40,
     "zdjecie": "/images/produkty_kwiaty/kwiat_07.jpg",
-    "dostawcaId": "d7"
+    "dostawcaId": 7
   },
   {
     "id": 8,
@@ -77,7 +77,7 @@
     "wysokosc": 150,
     "cena": 11.80,
     "zdjecie": "/images/produkty_kwiaty/kwiat_08.jpg",
-    "dostawcaId": "d8"
+    "dostawcaId": 1
   },
   {
     "id": 9,
@@ -87,7 +87,7 @@
     "wysokosc": 40,
     "cena": 15.50,
     "zdjecie": "/images/produkty_kwiaty/kwiat_09.jpg",
-    "dostawcaId": "d9"
+    "dostawcaId": 2
   },
   {
     "id": 10,
@@ -97,7 +97,7 @@
     "wysokosc": 90,
     "cena": 18.90,
     "zdjecie": "/images/produkty_kwiaty/kwiat_10.jpg",
-    "dostawcaId": "d10"
+    "dostawcaId": 3
   },
   {
     "id": 11,
