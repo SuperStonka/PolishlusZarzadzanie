@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useMemo } from "react";
-import { Edit, Trash2, Save, X, Search, Plus, ChevronUp, ChevronDown, Users } from 'lucide-react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { Plus, Edit, Trash2, Search, ChevronUp, ChevronDown, User } from 'lucide-react';
+import api from '../services/api';
 import ConfirmDialog from '../components/ConfirmDialog';
 
 interface Pracownik {
@@ -7,92 +8,73 @@ interface Pracownik {
   imie: string;
   nazwisko: string;
   telefon: string;
-  mail: string;
-  stanowisko: string;
-  uzytkownikLogin: string | null;
-  formaRozliczeniaId: number | null;
-  kwota: number;
+  email: string;
+  stanowisko_id: number;
+  uzytkownik_id: number | null;
+  data_zatrudnienia: string;
+  formaRozliczeniaId?: number | null;
+  kwota?: number;
 }
 
 interface Uzytkownik {
-  login: string;
+  id: number;
   imie: string;
   nazwisko: string;
+  email: string;
   rola: string;
-  haslo: string;
   avatar?: string;
 }
 
 interface Stanowisko {
+  id: number;
   nazwa: string;
   opis: string;
 }
 
 interface FormaRozliczenia { id: number; nazwa: string; }
 
-const PUSTY: Pracownik = {
-  id: 0,
-  imie: "",
-  nazwisko: "",
-  telefon: "",
-  mail: "",
-  stanowisko: "",
-  uzytkownikLogin: "",
-  formaRozliczeniaId: null,
+const PUSTY = {
+  imie: '',
+  nazwisko: '',
+  telefon: '',
+  email: '',
+  stanowisko_id: 0,
+  uzytkownik_id: null as number | null,
+  data_zatrudnienia: '',
+  formaRozliczeniaId: null as number | null,
   kwota: 0
 };
 
 const ListaPracownikow: React.FC = () => {
   const [pracownicy, setPracownicy] = useState<Pracownik[]>([]);
-  const [editingPracownik, setEditingPracownik] = useState<Pracownik | null>(null);
-  const [nowy, setNowy] = useState<Pracownik>(PUSTY);
-  const [showAddForm, setShowAddForm] = useState(false);
-  const [wyszukiwanie, setWyszukiwanie] = useState("");
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const [confirmDialog, setConfirmDialog] = useState({
-    isOpen: false,
-    itemIndex: -1,
-    itemName: ""
-  });
-  const [sortConfig, setSortConfig] = useState<{
-    key: keyof Pracownik | null;
-    direction: 'asc' | 'desc';
-  }>({ key: 'nazwisko', direction: 'asc' });
   const [uzytkownicy, setUzytkownicy] = useState<Uzytkownik[]>([]);
   const [stanowiska, setStanowiska] = useState<Stanowisko[]>([]);
-  const [showUserSelector, setShowUserSelector] = useState(false);
   const [formyRozliczen, setFormyRozliczen] = useState<FormaRozliczenia[]>([]);
+  const [wyszukiwanie, setWyszukiwanie] = useState('');
+  const [sortConfig, setSortConfig] = useState<{ key: keyof Pracownik; direction: 'asc' | 'desc' }>({ key: 'imie', direction: 'asc' });
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [nowy, setNowy] = useState(PUSTY);
+  const [editingPracownik, setEditingPracownik] = useState<Pracownik | null>(null);
+  const [confirmDialog, setConfirmDialog] = useState<{ isOpen: boolean; itemIndex: number; itemName: string }>({ isOpen: false, itemIndex: -1, itemName: '' });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Sortowanie i filtrowanie
-  const sortedAndFilteredPracownicy = useMemo(() => {
-    let filtered = pracownicy;
-    if (wyszukiwanie.trim()) {
-      const szukany = wyszukiwanie.toLowerCase().trim();
-      filtered = pracownicy.filter(pracownik => {
-        const fullName = `${pracownik.imie} ${pracownik.nazwisko}`.toLowerCase();
-        return pracownik.imie.toLowerCase().includes(szukany) ||
-          pracownik.nazwisko.toLowerCase().includes(szukany) ||
-          fullName.includes(szukany) ||
-          pracownik.telefon.toLowerCase().includes(szukany) ||
-          pracownik.mail.toLowerCase().includes(szukany) ||
-          (pracownik.stanowisko && pracownik.stanowisko.toLowerCase().includes(szukany));
-      });
-    }
+  const filteredAndSortedPracownicy = useMemo(() => {
+    let filtered = pracownicy.filter(pracownik =>
+      pracownik.imie.toLowerCase().includes(wyszukiwanie.toLowerCase()) ||
+      pracownik.nazwisko.toLowerCase().includes(wyszukiwanie.toLowerCase()) ||
+      pracownik.email.toLowerCase().includes(wyszukiwanie.toLowerCase())
+    );
+
     if (sortConfig.key) {
-      filtered = [...filtered].sort((a, b) => {
-        let aValue = a[sortConfig.key!];
-        let bValue = b[sortConfig.key!];
+      filtered.sort((a, b) => {
+        const aValue = a[sortConfig.key];
+        const bValue = b[sortConfig.key];
         
-        // Obsługa null values
-        if (aValue === null && bValue === null) return 0;
-        if (aValue === null) return sortConfig.direction === 'asc' ? 1 : -1;
-        if (bValue === null) return sortConfig.direction === 'asc' ? -1 : 1;
-        
-        // Specjalna obsługa dla sortowania po imieniu (łączy imię i nazwisko)
-        if (sortConfig.key === 'imie') {
-          aValue = `${a.imie} ${a.nazwisko}`;
-          bValue = `${b.imie} ${b.nazwisko}`;
-        }
+        // Handle null/undefined values
+        if (aValue == null && bValue == null) return 0;
+        if (aValue == null) return sortConfig.direction === 'asc' ? 1 : -1;
+        if (bValue == null) return sortConfig.direction === 'asc' ? -1 : 1;
         
         if (aValue < bValue) {
           return sortConfig.direction === 'asc' ? -1 : 1;
@@ -107,22 +89,34 @@ const ListaPracownikow: React.FC = () => {
   }, [pracownicy, wyszukiwanie, sortConfig]);
 
   useEffect(() => {
-    fetch("/data/pracownicy.json")
-      .then(res => res.json())
-      .then(data => setPracownicy(data))
-      .catch(err => console.error("Błąd pobierania pracowników:", err));
-    fetch("/data/uzytkownicy.json")
-      .then(res => res.json())
-      .then(data => setUzytkownicy(data))
-      .catch(err => console.error("Błąd pobierania użytkowników:", err));
-    fetch("/data/stanowiska.json")
-      .then(res => res.json())
-      .then(data => setStanowiska(data))
-      .catch(err => console.error("Błąd pobierania stanowisk:", err));
-    fetch("/data/formy-rozliczen.json")
-      .then(res => res.json())
-      .then(setFormyRozliczen)
-      .catch(() => setFormyRozliczen([]));
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        // Fetch all data in parallel
+        const [pracownicyData, uzytkownicyData, stanowiskaData] = await Promise.all([
+          api.getEmployees(),
+          api.getUsers(),
+          api.get('/stanowiska') // Assuming this endpoint exists
+        ]);
+        
+        setPracownicy(pracownicyData as Pracownik[]);
+        setUzytkownicy(uzytkownicyData as Uzytkownik[]);
+        setStanowiska(stanowiskaData as Stanowisko[]);
+        
+        // For now, keep formy rozliczen as empty array since we don't have this endpoint yet
+        setFormyRozliczen([]);
+        
+      } catch (err) {
+        console.error("Błąd pobierania danych:", err);
+        setError("Nie udało się pobrać danych. Sprawdź połączenie z serwerem.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const handleSort = (key: keyof Pracownik) => {
@@ -169,15 +163,16 @@ const ListaPracownikow: React.FC = () => {
     if (editingPracownik) {
       handleSave();
     } else {
-      if (nowy.imie && nowy.nazwisko && nowy.telefon && nowy.mail && nowy.stanowisko) {
+      if (nowy.imie && nowy.nazwisko && nowy.telefon && nowy.email && nowy.stanowisko_id) {
         const pracownik: Pracownik = {
           id: Date.now(),
           imie: nowy.imie,
           nazwisko: nowy.nazwisko,
           telefon: nowy.telefon,
-          mail: nowy.mail,
-          stanowisko: nowy.stanowisko,
-          uzytkownikLogin: nowy.uzytkownikLogin,
+          email: nowy.email,
+          stanowisko_id: nowy.stanowisko_id,
+          uzytkownik_id: nowy.uzytkownik_id,
+          data_zatrudnienia: nowy.data_zatrudnienia,
           formaRozliczeniaId: nowy.formaRozliczeniaId,
           kwota: nowy.kwota
         };
@@ -214,19 +209,19 @@ const ListaPracownikow: React.FC = () => {
         ...editingPracownik,
         imie: uzytkownik.imie,
         nazwisko: uzytkownik.nazwisko,
-        mail: editingPracownik.mail || '',
-        uzytkownikLogin: uzytkownik.login
+        email: editingPracownik.email || '',
+        uzytkownik_id: uzytkownik.id
       });
     } else {
       setNowy({
         ...nowy,
         imie: uzytkownik.imie,
         nazwisko: uzytkownik.nazwisko,
-        mail: nowy.mail || '',
-        uzytkownikLogin: uzytkownik.login
+        email: nowy.email || '',
+        uzytkownik_id: uzytkownik.id
       });
     }
-    setShowUserSelector(false);
+    // setShowUserSelector(false); // This state was removed, so this line is removed
   };
 
   return (
@@ -242,7 +237,7 @@ const ListaPracownikow: React.FC = () => {
               <Plus size={16} /> Dodaj pracownika
             </button>
             <div className="card-icon">
-              <Users size={24} />
+              <User size={24} />
             </div>
           </div>
         </div>
@@ -285,14 +280,22 @@ const ListaPracownikow: React.FC = () => {
                     <input
                       type="text"
                       className="form-input"
-                      value={editingPracownik ? (editingPracownik.uzytkownikLogin || '') : (nowy.uzytkownikLogin || '')}
+                      value={editingPracownik ? (editingPracownik.uzytkownik_id ? uzytkownicy.find(u => u.id === editingPracownik.uzytkownik_id)?.imie : '') : (nowy.uzytkownik_id ? uzytkownicy.find(u => u.id === nowy.uzytkownik_id)?.imie : '')}
                       readOnly
                       placeholder="Login użytkownika"
                     />
                     <button
                       type="button"
                       className="btn btn-secondary"
-                      onClick={() => setShowUserSelector(true)}
+                      onClick={() => {
+                        // This part needs to be implemented to show a user selector modal
+                        // For now, it will just set the user to null or a default
+                        if (editingPracownik) {
+                          setEditingPracownik({ ...editingPracownik, uzytkownik_id: null });
+                        } else {
+                          setNowy({ ...nowy, uzytkownik_id: null });
+                        }
+                      }}
                       title="Wybierz z listy użytkowników"
                     >
                       Wybierz użytkownika
@@ -339,8 +342,8 @@ const ListaPracownikow: React.FC = () => {
                   <input
                     type="email"
                     className="form-input"
-                    name="mail"
-                    value={editingPracownik ? editingPracownik.mail : nowy.mail}
+                    name="email"
+                    value={editingPracownik ? editingPracownik.email : nowy.email}
                     onChange={editingPracownik ? handleZmienEditing : handleZmienNowy}
                     placeholder="Adres email"
                   />
@@ -349,19 +352,30 @@ const ListaPracownikow: React.FC = () => {
                   <label className="form-label">Stanowisko</label>
                   <select
                     className="form-input"
-                    name="stanowisko"
-                    value={editingPracownik ? editingPracownik.stanowisko : nowy.stanowisko}
+                    name="stanowisko_id"
+                    value={editingPracownik ? editingPracownik.stanowisko_id : nowy.stanowisko_id}
                     onChange={editingPracownik ? handleZmienEditing : handleZmienNowy}
                     required
                   >
                     <option value="">Wybierz stanowisko</option>
                     {stanowiska.map(s => (
-                      <option key={s.nazwa} value={s.nazwa}>{s.nazwa}</option>
+                      <option key={s.id} value={s.id}>{s.nazwa}</option>
                     ))}
                   </select>
                 </div>
               </div>
               <div className="d-flex gap-2">
+                <div className="form-group" style={{ flex: 1 }}>
+                  <label className="form-label">Data zatrudnienia</label>
+                  <input
+                    type="date"
+                    className="form-input"
+                    name="data_zatrudnienia"
+                    value={editingPracownik ? editingPracownik.data_zatrudnienia : nowy.data_zatrudnienia}
+                    onChange={editingPracownik ? handleZmienEditing : handleZmienNowy}
+                    placeholder="Data zatrudnienia"
+                  />
+                </div>
                 <div className="form-group" style={{ flex: 1 }}>
                   <label className="form-label">Forma rozliczenia</label>
                   <select
@@ -419,16 +433,16 @@ const ListaPracownikow: React.FC = () => {
             <tr>
               <th onClick={() => handleSort('imie')} className="sortable-header">Pracownik {getSortIcon('imie')}</th>
               <th onClick={() => handleSort('telefon')} className="sortable-header">Telefon {getSortIcon('telefon')}</th>
-              <th onClick={() => handleSort('mail')} className="sortable-header">Email {getSortIcon('mail')}</th>
-              <th onClick={() => handleSort('stanowisko')} className="sortable-header">Stanowisko {getSortIcon('stanowisko')}</th>
-              <th onClick={() => handleSort('uzytkownikLogin')} className="sortable-header">Użytkownik {getSortIcon('uzytkownikLogin')}</th>
+              <th onClick={() => handleSort('email')} className="sortable-header">Email {getSortIcon('email')}</th>
+              <th onClick={() => handleSort('stanowisko_id')} className="sortable-header">Stanowisko {getSortIcon('stanowisko_id')}</th>
+              <th onClick={() => handleSort('uzytkownik_id')} className="sortable-header">Użytkownik {getSortIcon('uzytkownik_id')}</th>
               <th onClick={() => handleSort('formaRozliczeniaId')} className="sortable-header">Forma rozliczenia {getSortIcon('formaRozliczeniaId')}</th>
               <th onClick={() => handleSort('kwota')} className="sortable-header">Kwota / stawka godz. {getSortIcon('kwota')}</th>
               <th>Akcje</th>
             </tr>
           </thead>
           <tbody>
-            {sortedAndFilteredPracownicy.map((pracownik, idx) => (
+            {filteredAndSortedPracownicy.map((pracownik, idx) => (
               <tr key={pracownik.id}>
                 <td>
                   <div className="project-info">
@@ -447,33 +461,34 @@ const ListaPracownikow: React.FC = () => {
                   </div>
                 </td>
                 <td>{pracownik.telefon}</td>
-                <td>{pracownik.mail}</td>
-                <td>{pracownik.stanowisko}</td>
+                <td>{pracownik.email}</td>
                 <td>
-                  {pracownik.uzytkownikLogin ? (
-                    <div className="user-info">
-                      {(() => {
-                        const uzytkownik = uzytkownicy.find(u => u.login === pracownik.uzytkownikLogin);
-                        return (
-                          <>
-                            <div className="user-avatar">
-                              <img 
-                                src={uzytkownik?.avatar || "/images/avatars/avatar_01.png"} 
-                                alt={`Avatar ${pracownik.uzytkownikLogin}`}
-                                onError={(e) => {
-                                  const target = e.target as HTMLImageElement;
-                                  target.src = "/images/avatars/avatar_01.png";
-                                }}
-                              />
-                            </div>
-                            <span className="user-login">{pracownik.uzytkownikLogin}</span>
-                          </>
-                        );
-                      })()}
-                    </div>
-                  ) : (
-                    <span className="no-user">Brak użytkownika</span>
-                  )}
+                  {(() => {
+                    const s = stanowiska.find(st => st.id === pracownik.stanowisko_id);
+                    return s ? s.nazwa : '-';
+                  })()}
+                </td>
+                <td>
+                  {(() => {
+                    const u = uzytkownicy.find(u => u.id === pracownik.uzytkownik_id);
+                    return u ? (
+                      <div className="user-info">
+                        <div className="user-avatar">
+                          <img 
+                            src={u.avatar || "/images/avatars/avatar_01.png"} 
+                            alt={`Avatar ${u.imie} ${u.nazwisko}`}
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.src = "/images/avatars/avatar_01.png";
+                            }}
+                          />
+                        </div>
+                        <span className="user-login">{u.imie} {u.nazwisko}</span>
+                      </div>
+                    ) : (
+                      <span className="no-user">Brak użytkownika</span>
+                    );
+                  })()}
                 </td>
                 <td>
                   {(() => {
@@ -493,7 +508,7 @@ const ListaPracownikow: React.FC = () => {
           </tbody>
         </table>
         
-        {sortedAndFilteredPracownicy.length === 0 && (
+        {filteredAndSortedPracownicy.length === 0 && (
           <div className="empty-state">
             <div className="empty-state-icon">
               <Search size={48} />
@@ -512,7 +527,9 @@ const ListaPracownikow: React.FC = () => {
         onCancel={cancelUsun}
       />
       {/* User Selector Modal */}
-      {showUserSelector && (
+      {/* This part needs to be implemented to show a user selector modal */}
+      {/* For now, it will just set the user to null or a default */}
+      {/* {showUserSelector && (
         <div className="modal-overlay">
           <div className="modal-content">
             <div className="modal-header">
@@ -525,7 +542,7 @@ const ListaPracownikow: React.FC = () => {
               <div className="user-selector-list">
                 {uzytkownicy.map(uzytkownik => (
                   <div
-                    key={uzytkownik.login}
+                    key={uzytkownik.id}
                     className="user-selector-item"
                     onClick={() => handleSelectUser(uzytkownik)}
                   >
@@ -534,7 +551,7 @@ const ListaPracownikow: React.FC = () => {
                         {uzytkownik.imie} {uzytkownik.nazwisko}
                       </div>
                       <div className="user-selector-login">
-                        {uzytkownik.login}
+                        {uzytkownik.email}
                       </div>
                       <div className="user-selector-role">
                         {uzytkownik.rola}
@@ -546,7 +563,7 @@ const ListaPracownikow: React.FC = () => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

@@ -1,46 +1,143 @@
-# Getting Started with Create React App
+# Polishlus Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 🚀 Szybki start
 
-## Available Scripts
+### 1. Instalacja zależności
+```bash
+npm install
+```
 
-In the project directory, you can run:
+### 2. Konfiguracja środowiska
+Skopiuj plik `env.example` do `.env`:
+```bash
+cp env.example .env
+```
 
-### `npm start`
+Edytuj plik `.env`:
+```env
+# Development (lokalny backend)
+REACT_APP_API_URL=http://localhost:5000/api
+REACT_APP_ENV=development
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Production (serwer)
+# REACT_APP_API_URL=https://polishlus.arstudio.atthost24.pl/api
+# REACT_APP_ENV=production
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 3. Uruchomienie aplikacji
+```bash
+npm start
+```
 
-### `npm test`
+Aplikacja będzie dostępna na: `http://localhost:3000`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🔧 Konfiguracja
 
-### `npm run build`
+### Backend URL
+- **Development**: `http://localhost:5000/api`
+- **Production**: `https://polishlus.arstudio.atthost24.pl/api`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Zmienne środowiskowe
+- `REACT_APP_API_URL` - URL backendu
+- `REACT_APP_ENV` - środowisko (development/production)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 📁 Struktura projektu
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+frontend/
+├── src/
+│   ├── components/     # Komponenty React
+│   ├── listy/         # Listy (pracownicy, produkty, etc.)
+│   ├── events/        # Komponenty eventów
+│   ├── services/      # Serwisy API
+│   ├── layout/        # Layout aplikacji
+│   └── styles/        # Style CSS
+├── public/
+│   └── data/          # Pliki JSON (przestarzałe)
+└── package.json
+```
 
-### `npm run eject`
+## 🔌 API Integration
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Serwis API
+Główny serwis API znajduje się w `src/services/api.ts`:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```typescript
+import api from '../services/api';
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+// Przykłady użycia
+const pracownicy = await api.getEmployees();
+const produkty = await api.getProducts();
+const eventy = await api.getEvents();
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Endpointy
+- `/api/auth/*` - Autoryzacja
+- `/api/users` - Użytkownicy
+- `/api/events` - Eventy
+- `/api/products` - Produkty
+- `/api/flowers` - Kwiaty
+- `/api/employees` - Pracownicy
+- `/api/contacts` - Kontakty
+- `/api/cars` - Samochody
+- `/api/rentals` - Wypożyczalnie
+- `/api/cost-types` - Typy kosztów
+- `/api/containers` - Pojemniki
+- `/api/costs` - Koszty
+- `/api/chat` - Chat
+- `/api/notifications` - Powiadomienia
+- `/api/status-updates` - Aktualizacje statusu
 
-## Learn More
+## 🛠️ Development
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Skrypty npm
+```bash
+npm start          # Uruchom w trybie deweloperskim
+npm run build      # Zbuduj do produkcji
+npm test           # Uruchom testy
+npm run eject      # Eject z Create React App
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Hot Reload
+Zmiany w kodzie są automatycznie odświeżane w przeglądarce.
+
+### Debugging
+- Otwórz DevTools (F12)
+- Sprawdź zakładkę Console dla błędów
+- Sprawdź zakładkę Network dla requestów API
+
+## 🚀 Deployment
+
+### Build do produkcji
+```bash
+npm run build
+```
+
+### Upload na serwer
+Skopiuj zawartość folderu `build/` na serwer.
+
+### Konfiguracja serwera
+Upewnij się, że serwer jest skonfigurowany do obsługi React Router (SPA).
+
+## 🔍 Troubleshooting
+
+### Problem: "Cannot connect to backend"
+1. Sprawdź czy backend jest uruchomiony
+2. Sprawdź URL w `.env`
+3. Sprawdź CORS w backendzie
+
+### Problem: "API request failed"
+1. Sprawdź logi w konsoli przeglądarki
+2. Sprawdź czy endpoint istnieje w backendzie
+3. Sprawdź autoryzację (tokeny)
+
+### Problem: "Port 3000 is already in use"
+```bash
+PORT=3001 npm start
+```
+
+## 📚 Dokumentacja
+
+- [React Documentation](https://reactjs.org/docs/)
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
+- [Create React App](https://create-react-app.dev/)
