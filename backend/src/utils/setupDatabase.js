@@ -33,11 +33,47 @@ async function setupDatabase() {
 
     console.log('✅ Database schema created successfully');
 
-    // Check if data already exists
-    const existingData = await db.query('SELECT COUNT(*) as count FROM users');
-    if (parseInt(existingData.rows[0].count) > 0) {
-      console.log('📊 Data already exists, skipping migration');
-      return;
+    // Check if data already exists in multiple tables
+    const checkTables = ['users', 'eventy', 'produkty', 'kwiaty', 'pracownicy', 'kontakty'];
+    let hasData = false;
+    
+    for (const table of checkTables) {
+      try {
+        const result = await db.query(`SELECT COUNT(*) as count FROM ${table}`);
+        if (parseInt(result.rows[0].count) > 0) {
+          hasData = true;
+          break;
+        }
+      } catch (error) {
+        // Table might not exist yet, continue checking
+        console.log(`⚠️ Table ${table} not found, continuing...`);
+      }
+    }
+    
+    if (hasData) {
+      console.log('📊 Data already exists in some tables, but checking if migration is needed...');
+      
+      // Check if we need to force migration (e.g., if some tables are empty)
+      const emptyTables = [];
+      for (const table of checkTables) {
+        try {
+          const result = await db.query(`SELECT COUNT(*) as count FROM ${table}`);
+          if (parseInt(result.rows[0].count) === 0) {
+            emptyTables.push(table);
+          }
+        } catch (error) {
+          // Table doesn't exist, consider it empty
+          emptyTables.push(table);
+        }
+      }
+      
+      if (emptyTables.length > 0) {
+        console.log(`⚠️ Found empty tables: ${emptyTables.join(', ')}`);
+        console.log('🔄 Running migration to fill missing data...');
+      } else {
+        console.log('✅ All tables have data, skipping migration');
+        return;
+      }
     }
 
     // Run data migration

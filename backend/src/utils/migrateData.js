@@ -38,8 +38,8 @@ async function migrateData() {
     const grupyUprawnien = await readJsonFile(path.join(dataPath, 'grupyUprawnien.json'));
     for (const grupa of grupyUprawnien) {
       await db.query(
-        'INSERT INTO grupy_uprawnien (nazwa, opis) VALUES ($1, $2) ON CONFLICT (id) DO NOTHING',
-        [grupa.nazwa, grupa.opis]
+        'INSERT INTO grupy_uprawnien (id, nazwa, opis) VALUES ($1, $2, $3) ON CONFLICT (id) DO NOTHING',
+        [grupa.id, grupa.nazwa, grupa.opis]
       );
     }
 
@@ -48,8 +48,8 @@ async function migrateData() {
     const stanowiska = await readJsonFile(path.join(dataPath, 'stanowiska.json'));
     for (const stanowisko of stanowiska) {
       await db.query(
-        'INSERT INTO stanowiska (nazwa, opis) VALUES ($1, $2) ON CONFLICT (id) DO NOTHING',
-        [stanowisko.nazwa, stanowisko.opis]
+        'INSERT INTO stanowiska (id, nazwa, opis) VALUES ($1, $2, $3) ON CONFLICT (id) DO NOTHING',
+        [stanowisko.id, stanowisko.nazwa, stanowisko.opis]
       );
     }
 
@@ -58,8 +58,8 @@ async function migrateData() {
     const pracownicy = await readJsonFile(path.join(dataPath, 'pracownicy.json'));
     for (const pracownik of pracownicy) {
       await db.query(
-        'INSERT INTO pracownicy (imie, nazwisko, email, telefon, stanowisko_id, data_zatrudnienia) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT (id) DO NOTHING',
-        [pracownik.imie, pracownik.nazwisko, pracownik.mail, pracownik.telefon, pracownik.stanowisko_id, pracownik.data_zatrudnienia]
+        'INSERT INTO pracownicy (id, imie, nazwisko, email, telefon, stanowisko_id, data_zatrudnienia) VALUES ($1, $2, $3, $4, $5, $6, $7) ON CONFLICT (id) DO NOTHING',
+        [pracownik.id, pracownik.imie, pracownik.nazwisko, pracownik.mail, pracownik.telefon, pracownik.stanowisko_id, pracownik.data_zatrudnienia]
       );
     }
 
@@ -68,8 +68,8 @@ async function migrateData() {
     const kontakty = await readJsonFile(path.join(dataPath, 'kontakty.json'));
     for (const kontakt of kontakty) {
       await db.query(
-        'INSERT INTO kontakty (imie, nazwisko, email, telefon, firma, stanowisko, adres) VALUES ($1, $2, $3, $4, $5, $6, $7) ON CONFLICT (id) DO NOTHING',
-        [kontakt.imie, kontakt.nazwisko, kontakt.mail, kontakt.telefon, kontakt.nazwaFirmy, kontakt.stanowisko, `${kontakt.ulica}, ${kontakt.kodPocztowy} ${kontakt.miasto}`]
+        'INSERT INTO kontakty (id, imie, nazwisko, email, telefon, firma, stanowisko, adres) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ON CONFLICT (id) DO NOTHING',
+        [kontakt.id, kontakt.imie, kontakt.nazwisko, kontakt.mail, kontakt.telefon, kontakt.nazwaFirmy, kontakt.stanowisko, `${kontakt.ulica}, ${kontakt.kodPocztowy} ${kontakt.miasto}`]
       );
     }
 
@@ -78,8 +78,8 @@ async function migrateData() {
     const kategorieProduktow = await readJsonFile(path.join(dataPath, 'kategorieProduktow.json'));
     for (const kategoria of kategorieProduktow) {
       await db.query(
-        'INSERT INTO kategorie_produktow (nazwa, opis) VALUES ($1, $2) ON CONFLICT (id) DO NOTHING',
-        [kategoria.nazwa, kategoria.opis]
+        'INSERT INTO kategorie_produktow (id, nazwa, opis) VALUES ($1, $2, $3) ON CONFLICT (id) DO NOTHING',
+        [kategoria.id, kategoria.nazwa, kategoria.opis]
       );
     }
 
@@ -88,8 +88,8 @@ async function migrateData() {
     const produkty = await readJsonFile(path.join(dataPath, 'produkty.json'));
     for (const produkt of produkty) {
       await db.query(
-        'INSERT INTO produkty (kod, nazwa, kategoria_id, opis, cena, jednostka) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT (kod) DO NOTHING',
-        [produkt.kod_produktu, produkt.nazwa, produkt.kategoria, produkt.uwagi, produkt.cena, produkt.jednostka]
+        'INSERT INTO produkty (id, kod, nazwa, kategoria_id, opis, cena, jednostka) VALUES ($1, $2, $3, $4, $5, $6, $7) ON CONFLICT (id) DO NOTHING',
+        [produkt.id, produkt.kod_produktu, produkt.nazwa, produkt.kategoria, produkt.uwagi, produkt.cena, produkt.jednostka]
       );
     }
 
@@ -98,8 +98,8 @@ async function migrateData() {
     const kwiaty = await readJsonFile(path.join(dataPath, 'kwiaty.json'));
     for (const kwiat of kwiaty) {
       await db.query(
-        'INSERT INTO kwiaty (nazwa, kolor, cena, dostawca_id) VALUES ($1, $2, $3, $4) ON CONFLICT (id) DO NOTHING',
-        [kwiat.nazwa, kwiat.kolor, kwiat.cena, kwiat.dostawcaId]
+        'INSERT INTO kwiaty (id, nazwa, kolor, cena, dostawca_id) VALUES ($1, $2, $3, $4, $5) ON CONFLICT (id) DO NOTHING',
+        [kwiat.id, kwiat.nazwa, kwiat.kolor, kwiat.cena, kwiat.dostawcaId]
       );
     }
 
@@ -108,8 +108,8 @@ async function migrateData() {
     const dostawcyKwiatow = await readJsonFile(path.join(dataPath, 'dostawcy-kwiatow.json'));
     for (const dostawca of dostawcyKwiatow) {
       await db.query(
-        'INSERT INTO dostawcy_kwiatow (nazwa, telefon, email, adres) VALUES ($1, $2, $3, $4) ON CONFLICT (id) DO NOTHING',
-        [dostawca.nazwa, dostawca.telefon, dostawca.mail, `${dostawca.ulica}, ${dostawca.kodPocztowy} ${dostawca.miasto}`]
+        'INSERT INTO dostawcy_kwiatow (id, nazwa, telefon, email, adres) VALUES ($1, $2, $3, $4, $5) ON CONFLICT (id) DO NOTHING',
+        [dostawca.id, dostawca.nazwa, dostawca.telefon, dostawca.mail, `${dostawca.ulica}, ${dostawca.kodPocztowy} ${dostawca.miasto}`]
       );
     }
 
@@ -118,8 +118,8 @@ async function migrateData() {
     const pojemniki = await readJsonFile(path.join(dataPath, 'pojemniki.json'));
     for (const pojemnik of pojemniki) {
       await db.query(
-        'INSERT INTO pojemniki (nazwa, rozmiar, pojemnosc, material) VALUES ($1, $2, $3, $4) ON CONFLICT (id) DO NOTHING',
-        [pojemnik.nazwa, pojemnik.typ, pojemnik.typ, pojemnik.typ]
+        'INSERT INTO pojemniki (id, nazwa, rozmiar, pojemnosc, material) VALUES ($1, $2, $3, $4, $5) ON CONFLICT (id) DO NOTHING',
+        [pojemnik.id, pojemnik.nazwa, pojemnik.typ, pojemnik.typ, pojemnik.typ]
       );
     }
 
@@ -128,8 +128,8 @@ async function migrateData() {
     const wypozyczalnie = await readJsonFile(path.join(dataPath, 'wypozyczalnie.json'));
     for (const wypozyczalnia of wypozyczalnie) {
       await db.query(
-        'INSERT INTO wypozyczalnie (nazwa, telefon, email, adres) VALUES ($1, $2, $3, $4) ON CONFLICT (id) DO NOTHING',
-        [wypozyczalnia.nazwa, wypozyczalnia.telefon, wypozyczalnia.email, wypozyczalnia.adres]
+        'INSERT INTO wypozyczalnie (id, nazwa, telefon, email, adres) VALUES ($1, $2, $3, $4, $5) ON CONFLICT (id) DO NOTHING',
+        [wypozyczalnia.id, wypozyczalnia.nazwa, wypozyczalnia.telefon, wypozyczalnia.email, wypozyczalnia.adres]
       );
     }
 
@@ -138,8 +138,8 @@ async function migrateData() {
     const typyKosztow = await readJsonFile(path.join(dataPath, 'typy-kosztow.json'));
     for (const typKosztu of typyKosztow) {
       await db.query(
-        'INSERT INTO typy_kosztow (nazwa, powiazanie, jednostka) VALUES ($1, $2, $3) ON CONFLICT (id) DO NOTHING',
-        [typKosztu.nazwa, typKosztu.powiazanie, typKosztu.jednostka]
+        'INSERT INTO typy_kosztow (id, nazwa, powiazanie, jednostka) VALUES ($1, $2, $3, $4) ON CONFLICT (id) DO NOTHING',
+        [typKosztu.id, typKosztu.nazwa, typKosztu.powiazanie, typKosztu.jednostka]
       );
     }
 
@@ -148,8 +148,8 @@ async function migrateData() {
     const samochody = await readJsonFile(path.join(dataPath, 'samochody.json'));
     for (const samochod of samochody) {
       await db.query(
-        'INSERT INTO samochody (model, numer_rejestracyjny, typ) VALUES ($1, $2, $3) ON CONFLICT (numer_rejestracyjny) DO NOTHING',
-        [samochod.model, samochod.numer_rejestracyjny, samochod.typ]
+        'INSERT INTO samochody (id, model, numer_rejestracyjny, typ) VALUES ($1, $2, $3, $4) ON CONFLICT (id) DO NOTHING',
+        [samochod.id, samochod.model, samochod.numer_rejestracyjny, samochod.typ]
       );
     }
 
@@ -158,8 +158,8 @@ async function migrateData() {
     const eventy = await readJsonFile(path.join(dataPath, 'projekty.json'));
     for (const event of eventy) {
       await db.query(
-        'INSERT INTO eventy (numer, nazwa, data, lokalizacja, status, opis) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT (numer) DO NOTHING',
-        [event.numer, event.nazwa, event.data, event.lokalizacja, event.status, event.opis]
+        'INSERT INTO eventy (id, numer, nazwa, data, lokalizacja, status, opis) VALUES ($1, $2, $3, $4, $5, $6, $7) ON CONFLICT (id) DO NOTHING',
+        [event.id, event.numer, event.nazwa, event.data, event.lokalizacja, event.status, event.opis]
       );
     }
 
@@ -180,8 +180,9 @@ async function migrateData() {
     const kosztyEventow = await readJsonFile(path.join(dataPath, 'koszty-projektow.json'));
     for (const koszt of kosztyEventow) {
       await db.query(
-        'INSERT INTO koszty_eventow (event_id, typ_kosztu_id, powiazany_element_id, powiazany_element_typ, ilosc, cena_netto, cena_brutto, wartosc_netto, wartosc_brutto, ma_fakture, numer_faktury) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) ON CONFLICT (id) DO NOTHING',
+        'INSERT INTO koszty_eventow (id, event_id, typ_kosztu_id, powiazany_element_id, powiazany_element_typ, ilosc, cena_netto, cena_brutto, wartosc_netto, wartosc_brutto, ma_fakture, numer_faktury) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) ON CONFLICT (id) DO NOTHING',
         [
+          koszt.id,
           koszt.projektId,
           koszt.typKosztuId,
           koszt.powiazanyElementId,
