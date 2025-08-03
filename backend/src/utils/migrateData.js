@@ -89,7 +89,7 @@ async function migrateData() {
     for (const produkt of produkty) {
       await db.query(
         'INSERT INTO produkty (kod, nazwa, kategoria_id, opis, cena, jednostka) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT (kod) DO NOTHING',
-        [produkt.kod, produkt.nazwa, produkt.kategoria_id, produkt.opis, produkt.cena, produkt.jednostka]
+        [produkt.kod_produktu, produkt.nazwa, produkt.kategoria, produkt.uwagi, produkt.cena, produkt.jednostka]
       );
     }
 
@@ -99,7 +99,7 @@ async function migrateData() {
     for (const kwiat of kwiaty) {
       await db.query(
         'INSERT INTO kwiaty (nazwa, kolor, cena, dostawca_id) VALUES ($1, $2, $3, $4) ON CONFLICT (id) DO NOTHING',
-        [kwiat.nazwa, kwiat.kolor, kwiat.cena, kwiat.dostawca_id]
+        [kwiat.nazwa, kwiat.kolor, kwiat.cena, kwiat.dostawcaId]
       );
     }
 
@@ -109,7 +109,7 @@ async function migrateData() {
     for (const dostawca of dostawcyKwiatow) {
       await db.query(
         'INSERT INTO dostawcy_kwiatow (nazwa, telefon, email, adres) VALUES ($1, $2, $3, $4) ON CONFLICT (id) DO NOTHING',
-        [dostawca.nazwa, dostawca.telefon, dostawca.email, dostawca.adres]
+        [dostawca.nazwa, dostawca.telefon, dostawca.mail, `${dostawca.ulica}, ${dostawca.kodPocztowy} ${dostawca.miasto}`]
       );
     }
 
