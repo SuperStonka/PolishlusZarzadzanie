@@ -29,7 +29,7 @@ async function migrateData() {
       const hashedPassword = await bcrypt.hash('password123', 10);
       await db.query(
         'INSERT INTO users (imie, nazwisko, email, haslo, rola, avatar) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT (email) DO NOTHING',
-        [user.imie, user.nazwisko, user.email, hashedPassword, user.rola, user.avatar]
+        [user.imie, user.nazwisko, user.mail, hashedPassword, user.rola, user.avatar]
       );
     }
 
@@ -59,7 +59,7 @@ async function migrateData() {
     for (const pracownik of pracownicy) {
       await db.query(
         'INSERT INTO pracownicy (imie, nazwisko, email, telefon, stanowisko_id, data_zatrudnienia) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT (id) DO NOTHING',
-        [pracownik.imie, pracownik.nazwisko, pracownik.email, pracownik.telefon, pracownik.stanowisko_id, pracownik.data_zatrudnienia]
+        [pracownik.imie, pracownik.nazwisko, pracownik.mail, pracownik.telefon, pracownik.stanowisko_id, pracownik.data_zatrudnienia]
       );
     }
 
@@ -69,7 +69,7 @@ async function migrateData() {
     for (const kontakt of kontakty) {
       await db.query(
         'INSERT INTO kontakty (imie, nazwisko, email, telefon, firma, stanowisko, adres) VALUES ($1, $2, $3, $4, $5, $6, $7) ON CONFLICT (id) DO NOTHING',
-        [kontakt.imie, kontakt.nazwisko, kontakt.email, kontakt.telefon, kontakt.firma, kontakt.stanowisko, kontakt.adres]
+        [kontakt.imie, kontakt.nazwisko, kontakt.mail, kontakt.telefon, kontakt.nazwaFirmy, kontakt.stanowisko, `${kontakt.ulica}, ${kontakt.kodPocztowy} ${kontakt.miasto}`]
       );
     }
 
