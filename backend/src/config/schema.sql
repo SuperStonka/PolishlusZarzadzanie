@@ -50,7 +50,8 @@ CREATE TABLE IF NOT EXISTS pracownicy (
     email VARCHAR(100),
     telefon VARCHAR(20),
     stanowisko_id INTEGER REFERENCES stanowiska(id),
-    data_zatrudnienia DATE,
+    uzytkownik_id INTEGER REFERENCES users(id),
+    data_zatrudnienia DATE DEFAULT CURRENT_DATE,
     aktywny BOOLEAN DEFAULT true,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -63,7 +64,7 @@ CREATE TABLE IF NOT EXISTS kontakty (
     email VARCHAR(100),
     telefon VARCHAR(20),
     firma VARCHAR(100),
-    stanowisko VARCHAR(100),
+    stanowisko_id INTEGER REFERENCES stanowiska(id),
     adres TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -89,17 +90,6 @@ CREATE TABLE IF NOT EXISTS produkty (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Flowers table
-CREATE TABLE IF NOT EXISTS kwiaty (
-    id SERIAL PRIMARY KEY,
-    nazwa VARCHAR(100) NOT NULL,
-    kolor VARCHAR(50),
-    cena DECIMAL(10,2),
-    dostawca_id INTEGER,
-    aktywny BOOLEAN DEFAULT true,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
 -- Flower suppliers table
 CREATE TABLE IF NOT EXISTS dostawcy_kwiatow (
     id SERIAL PRIMARY KEY,
@@ -110,6 +100,17 @@ CREATE TABLE IF NOT EXISTS dostawcy_kwiatow (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Flowers table
+CREATE TABLE IF NOT EXISTS kwiaty (
+    id SERIAL PRIMARY KEY,
+    nazwa VARCHAR(100) NOT NULL,
+    kolor VARCHAR(50),
+    cena DECIMAL(10,2),
+    dostawca_id INTEGER REFERENCES dostawcy_kwiatow(id),
+    aktywny BOOLEAN DEFAULT true,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Containers table
 CREATE TABLE IF NOT EXISTS pojemniki (
     id SERIAL PRIMARY KEY,
@@ -117,7 +118,6 @@ CREATE TABLE IF NOT EXISTS pojemniki (
     rozmiar VARCHAR(50),
     pojemnosc VARCHAR(50),
     material VARCHAR(50),
-    aktywny BOOLEAN DEFAULT true,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -135,8 +135,8 @@ CREATE TABLE IF NOT EXISTS wypozyczalnie (
 CREATE TABLE IF NOT EXISTS typy_kosztow (
     id SERIAL PRIMARY KEY,
     nazwa VARCHAR(100) NOT NULL,
-    powiazanie VARCHAR(50) DEFAULT 'brak', -- samochod, pracownik, kontakt, wypozyczalnia, brak
-    jednostka VARCHAR(20) DEFAULT 'szt.',
+    powiazanie VARCHAR(50),
+    jednostka VARCHAR(20),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -144,9 +144,8 @@ CREATE TABLE IF NOT EXISTS typy_kosztow (
 CREATE TABLE IF NOT EXISTS samochody (
     id SERIAL PRIMARY KEY,
     model VARCHAR(100) NOT NULL,
-    numer_rejestracyjny VARCHAR(20) UNIQUE,
-    typ VARCHAR(50), -- Osobowy, Dostawczy, Plandeka
-    aktywny BOOLEAN DEFAULT true,
+    numer_rejestracyjny VARCHAR(20) UNIQUE NOT NULL,
+    typ VARCHAR(50),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -156,20 +155,19 @@ CREATE TABLE IF NOT EXISTS eventy (
     numer VARCHAR(50) UNIQUE NOT NULL,
     nazwa VARCHAR(200) NOT NULL,
     data DATE NOT NULL,
-    lokalizacja VARCHAR(200),
-    status VARCHAR(50) DEFAULT 'planowany',
+    lokalizacja TEXT,
+    status VARCHAR(50) DEFAULT 'nowe',
     opis TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Event stages table
 CREATE TABLE IF NOT EXISTS etapy_eventow (
     id SERIAL PRIMARY KEY,
-    event_id INTEGER REFERENCES eventy(id) ON DELETE CASCADE,
     nazwa VARCHAR(100) NOT NULL,
-    data_rozpoczecia TIMESTAMP,
-    data_zakonczenia TIMESTAMP,
-    status VARCHAR(50) DEFAULT 'planowany',
+    opis TEXT,
+    kolejność INTEGER DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -177,7 +175,7 @@ CREATE TABLE IF NOT EXISTS etapy_eventow (
 CREATE TABLE IF NOT EXISTS produkty_w_eventach (
     id SERIAL PRIMARY KEY,
     event_id INTEGER REFERENCES eventy(id) ON DELETE CASCADE,
-    produkt_id INTEGER REFERENCES produkty(id),
+    produkt_id INTEGER REFERENCES produkty(id) ON DELETE CASCADE,
     ilosc INTEGER DEFAULT 1,
     spakowane INTEGER DEFAULT 0,
     zwrocone INTEGER DEFAULT 0,
@@ -192,7 +190,7 @@ CREATE TABLE IF NOT EXISTS produkty_w_eventach (
 CREATE TABLE IF NOT EXISTS kwiaty_w_eventach (
     id SERIAL PRIMARY KEY,
     event_id INTEGER REFERENCES eventy(id) ON DELETE CASCADE,
-    kwiat_id INTEGER REFERENCES kwiaty(id),
+    kwiat_id INTEGER REFERENCES kwiaty(id) ON DELETE CASCADE,
     ilosc INTEGER DEFAULT 1,
     spakowane INTEGER DEFAULT 0,
     zwrocone INTEGER DEFAULT 0,
@@ -207,7 +205,7 @@ CREATE TABLE IF NOT EXISTS koszty_eventow (
     event_id INTEGER REFERENCES eventy(id) ON DELETE CASCADE,
     typ_kosztu_id INTEGER REFERENCES typy_kosztow(id),
     powiazany_element_id INTEGER,
-    powiazany_element_typ VARCHAR(50), -- samochod, pracownik, kontakt, wypozyczalnia
+    powiazany_element_typ VARCHAR(50),
     ilosc DECIMAL(10,2) DEFAULT 1,
     cena_netto DECIMAL(10,2),
     cena_brutto DECIMAL(10,2),
@@ -222,33 +220,31 @@ CREATE TABLE IF NOT EXISTS koszty_eventow (
 CREATE TABLE IF NOT EXISTS wiadomosci_chat (
     id SERIAL PRIMARY KEY,
     nadawca_id INTEGER REFERENCES users(id),
-    odbiorca_id INTEGER, -- NULL for general messages
+    odbiorca_id INTEGER REFERENCES users(id),
     tresc TEXT NOT NULL,
-    zdjecia TEXT[], -- Array of image URLs
+    zdjecia TEXT[],
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Notifications table
 CREATE TABLE IF NOT EXISTS powiadomienia (
     id SERIAL PRIMARY KEY,
-    uzytkownik_id INTEGER REFERENCES users(id),
-    typ VARCHAR(50) NOT NULL, -- event, chat, calendar, system
+    uzytkownik_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    typ VARCHAR(50) NOT NULL,
     tytul VARCHAR(200) NOT NULL,
-    wiadomosc TEXT,
-    priorytet VARCHAR(20) DEFAULT 'medium', -- low, medium, high
+    tresc TEXT,
     przeczytane BOOLEAN DEFAULT false,
-    data_powiadomienia TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Status updates table
 CREATE TABLE IF NOT EXISTS aktualizacje_statusu (
     id SERIAL PRIMARY KEY,
-    event_id INTEGER REFERENCES eventy(id),
-    typ VARCHAR(50) NOT NULL, -- packing, assembly, disassembly, damage
+    event_id INTEGER REFERENCES eventy(id) ON DELETE CASCADE,
+    uzytkownik_id INTEGER REFERENCES users(id),
     status VARCHAR(50) NOT NULL,
     opis TEXT,
-    priorytet VARCHAR(20) DEFAULT 'medium',
-    data_aktualizacji TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Create indexes for better performance
@@ -261,7 +257,7 @@ CREATE INDEX IF NOT EXISTS idx_wiadomosci_chat_timestamp ON wiadomosci_chat(time
 CREATE INDEX IF NOT EXISTS idx_powiadomienia_uzytkownik_id ON powiadomienia(uzytkownik_id);
 CREATE INDEX IF NOT EXISTS idx_aktualizacje_statusu_event_id ON aktualizacje_statusu(event_id);
 
--- Create updated_at trigger function
+-- Create function to update updated_at column
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -270,6 +266,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Add updated_at triggers to relevant tables
+-- Create triggers for updated_at columns
 CREATE TRIGGER update_users_updated_at BEFORE UPDATE ON users FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 CREATE TRIGGER update_eventy_updated_at BEFORE UPDATE ON eventy FOR EACH ROW EXECUTE FUNCTION update_updated_at_column(); 

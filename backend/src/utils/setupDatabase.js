@@ -2,9 +2,66 @@ const fs = require('fs').promises;
 const path = require('path');
 const db = require('../config/database');
 
+async function dropAllTables() {
+  try {
+    console.log('🗑️ Dropping all existing tables...');
+    
+    // Lista tabel w kolejności usuwania (od zależnych do niezależnych)
+    const tables = [
+      'aktualizacje_statusu',
+      'powiadomienia',
+      'wiadomosci_chat',
+      'koszty_eventow',
+      'kwiaty_w_eventach',
+      'produkty_w_eventach',
+      'etapy_eventow',
+      'eventy',
+      'samochody',
+      'typy_kosztow',
+      'wypozyczalnie',
+      'pojemniki',
+      'kwiaty',
+      'dostawcy_kwiatow',
+      'produkty',
+      'kategorie_produktow',
+      'kontakty',
+      'pracownicy',
+      'stanowiska',
+      'uzytkownicy_grupy',
+      'grupy_uprawnien',
+      'users'
+    ];
+
+    for (const table of tables) {
+      try {
+        await db.query(`DROP TABLE IF EXISTS ${table} CASCADE`);
+        console.log(`✅ Dropped table: ${table}`);
+      } catch (error) {
+        console.log(`⚠️ Could not drop table ${table}:`, error.message);
+      }
+    }
+
+    // Usuń funkcje i rozszerzenia
+    try {
+      await db.query('DROP FUNCTION IF EXISTS update_updated_at_column() CASCADE');
+      console.log('✅ Dropped function: update_updated_at_column');
+    } catch (error) {
+      console.log('⚠️ Could not drop function:', error.message);
+    }
+
+    console.log('✅ All tables and functions dropped successfully');
+  } catch (error) {
+    console.error('❌ Error dropping tables:', error);
+    throw error;
+  }
+}
+
 async function setupDatabase() {
   try {
     console.log('🚀 Setting up Polishlus database...');
+
+    // Drop all existing tables first
+    await dropAllTables();
 
     // Read and execute schema
     console.log('📋 Creating database schema...');
@@ -33,50 +90,7 @@ async function setupDatabase() {
 
     console.log('✅ Database schema created successfully');
 
-    // Check if data already exists in multiple tables
-    const checkTables = ['users', 'eventy', 'produkty', 'kwiaty', 'pracownicy', 'kontakty'];
-    let hasData = false;
-    
-    for (const table of checkTables) {
-      try {
-        const result = await db.query(`SELECT COUNT(*) as count FROM ${table}`);
-        if (parseInt(result.rows[0].count) > 0) {
-          hasData = true;
-          break;
-        }
-      } catch (error) {
-        // Table might not exist yet, continue checking
-        console.log(`⚠️ Table ${table} not found, continuing...`);
-      }
-    }
-    
-    if (hasData) {
-      console.log('📊 Data already exists in some tables, but checking if migration is needed...');
-      
-      // Check if we need to force migration (e.g., if some tables are empty)
-      const emptyTables = [];
-      for (const table of checkTables) {
-        try {
-          const result = await db.query(`SELECT COUNT(*) as count FROM ${table}`);
-          if (parseInt(result.rows[0].count) === 0) {
-            emptyTables.push(table);
-          }
-        } catch (error) {
-          // Table doesn't exist, consider it empty
-          emptyTables.push(table);
-        }
-      }
-      
-      if (emptyTables.length > 0) {
-        console.log(`⚠️ Found empty tables: ${emptyTables.join(', ')}`);
-        console.log('🔄 Running migration to fill missing data...');
-      } else {
-        console.log('✅ All tables have data, skipping migration');
-        return;
-      }
-    }
-
-    // Run data migration
+    // Run data migration (always run since we dropped everything)
     console.log('📦 Migrating sample data...');
     const { migrateData } = require('./migrateData');
     await migrateData();
