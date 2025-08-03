@@ -1,145 +1,175 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import { Edit, Trash2, X, Search, Plus, Flower, ChevronUp, ChevronDown, Upload, Save } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Plus, Edit, Trash2, Search, ChevronUp, ChevronDown, Flower, X, Upload, Save } from 'lucide-react';
+import api from '../services/api';
 import ConfirmDialog from '../components/ConfirmDialog';
 import ImageModal from '../components/ImageModal';
 
 interface Kwiat {
   id: number;
   nazwa: string;
-  odmiana: string;
   kolor: string;
-  wysokosc: number;
   cena: number;
-  zdjecie: string;
-  dostawcaId: string;
+  dostawca_id: number;
+  wysokosc?: number;
+  zdjecie?: string;
 }
 
-interface Dostawca {
-  id: string;
+interface DostawcaKwiatow {
+  id: number;
   nazwa: string;
-  telefon?: string;
-  mail?: string;
-  czyFirma?: boolean;
-  nazwaFirmy?: string;
-  ulica?: string;
-  kodPocztowy?: string;
-  miasto?: string;
-  nip?: string;
+  telefon: string;
+  email: string;
+  adres: string;
 }
 
 const PUSTY: Kwiat = {
   id: 0,
-  nazwa: "",
-  odmiana: "",
-  kolor: "",
-  wysokosc: 0,
+  nazwa: '',
+  kolor: '',
   cena: 0,
-  zdjecie: "",
-  dostawcaId: ""
+  dostawca_id: 0,
+  wysokosc: 0,
+  zdjecie: ''
 };
 
 const ListaKwiatow: React.FC = () => {
   const [kwiaty, setKwiaty] = useState<Kwiat[]>([]);
-  const [dostawcy, setDostawcy] = useState<Dostawca[]>([]);
-  const [nowy, setNowy] = useState<Kwiat>(PUSTY);
-  const [editingKwiat, setEditingKwiat] = useState<Kwiat | null>(null);
-  const [showAddForm, setShowAddForm] = useState(false);
+  const [dostawcy, setDostawcy] = useState<DostawcaKwiatow[]>([]);
   const [wyszukiwanie, setWyszukiwanie] = useState('');
+  const [sortConfig, setSortConfig] = useState<{ key: keyof Kwiat; direction: 'asc' | 'desc' }>({ key: 'nazwa', direction: 'asc' });
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [nowy, setNowy] = useState(PUSTY);
+  const [editingKwiat, setEditingKwiat] = useState<Kwiat | null>(null);
+  const [confirmDialog, setConfirmDialog] = useState<{ isOpen: boolean; kwiatId: number; kwiatNazwa: string }>({ isOpen: false, kwiatId: 0, kwiatNazwa: '' });
   const [loading, setLoading] = useState(true);
-  const [confirmDialog, setConfirmDialog] = useState<{
-    isOpen: boolean;
-    itemIndex: number;
-    itemName: string;
-  }>({ isOpen: false, itemIndex: -1, itemName: "" });
+  const [error, setError] = useState<string | null>(null);
   const [showImageModal, setShowImageModal] = useState(false);
-  const [selectedImage, setSelectedImage] = useState('');
-  
-  const [sortConfig, setSortConfig] = useState<{
-    key: keyof Kwiat | null;
-    direction: 'asc' | 'desc';
-  }>({ key: 'nazwa', direction: 'asc' });
-
-  // Sortowanie i filtrowanie
-  const sortedAndFilteredKwiaty = useMemo(() => {
-    let filtered = kwiaty;
-    
-    // Filtrowanie
-    if (wyszukiwanie.trim()) {
-      const szukany = wyszukiwanie.toLowerCase().trim();
-      filtered = kwiaty.filter(kwiat => 
-        kwiat.nazwa.toLowerCase().includes(szukany) ||
-        kwiat.odmiana.toLowerCase().includes(szukany) ||
-        kwiat.kolor.toLowerCase().includes(szukany) ||
-        kwiat.dostawcaId.toLowerCase().includes(szukany) ||
-        kwiat.cena.toString().includes(szukany)
-      );
-    }
-    
-    // Sortowanie
-    if (sortConfig.key) {
-      filtered = [...filtered].sort((a, b) => {
-        const aValue = a[sortConfig.key!];
-        const bValue = b[sortConfig.key!];
-        
-        if (typeof aValue === 'string' && typeof bValue === 'string') {
-          const comparison = aValue.localeCompare(bValue, 'pl');
-          return sortConfig.direction === 'asc' ? comparison : -comparison;
-        }
-        
-        if (typeof aValue === 'number' && typeof bValue === 'number') {
-          return sortConfig.direction === 'asc' ? aValue - bValue : bValue - aValue;
-        }
-        
-        return 0;
-      });
-    }
-    
-    return filtered;
-  }, [kwiaty, wyszukiwanie, sortConfig]);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   useEffect(() => {
-    setLoading(true);
-    fetch('/data/kwiaty.json')
-      .then(response => response.json())
-      .then(data => {
-        setKwiaty(data);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('Error fetching kwiaty:', error);
-        setLoading(false);
-      });
-    fetch('/data/dostawcy-kwiatow.json')
-      .then(res => res.json())
-      .then(setDostawcy)
-      .catch(() => setDostawcy([]));
+    loadData();
   }, []);
 
+  const loadData = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      const [kwiatyData, dostawcyData] = await Promise.all([
+        api.getFlowers(),
+        api.get('/dostawcy-kwiatow') // Assuming this endpoint exists
+      ]);
+      
+      setKwiaty(kwiatyData as Kwiat[]);
+      setDostawcy(dostawcyData as DostawcaKwiatow[]);
+      
+    } catch (error) {
+      console.error('Błąd podczas ładowania danych:', error);
+      setError("Nie udało się pobrać danych. Sprawdź połączenie z serwerem.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const filteredKwiaty = kwiaty.filter(kwiat =>
+    kwiat.nazwa.toLowerCase().includes(wyszukiwanie.toLowerCase()) ||
+    kwiat.kolor.toLowerCase().includes(wyszukiwanie.toLowerCase())
+  );
+
+  const sortedKwiaty = [...filteredKwiaty].sort((a, b) => {
+    if (!sortConfig.key) return 0;
+    
+    const aValue = a[sortConfig.key];
+    const bValue = b[sortConfig.key];
+    
+    if (aValue == null && bValue == null) return 0;
+    if (aValue == null) return sortConfig.direction === 'asc' ? 1 : -1;
+    if (bValue == null) return sortConfig.direction === 'asc' ? -1 : 1;
+    
+    if (aValue < bValue) {
+      return sortConfig.direction === 'asc' ? -1 : 1;
+    }
+    if (aValue > bValue) {
+      return sortConfig.direction === 'asc' ? 1 : -1;
+    }
+    return 0;
+  });
+
   const handleSort = (key: keyof Kwiat) => {
-    setSortConfig(prevConfig => ({
+    setSortConfig(prev => ({
       key,
-      direction: 
-        prevConfig.key === key && prevConfig.direction === 'asc' 
-          ? 'desc' 
-          : 'asc'
+      direction: prev.key === key && prev.direction === 'asc' ? 'desc' : 'asc'
     }));
   };
 
-  const handleZmienNowy = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleAdd = async () => {
+    if (editingKwiat) {
+      // Tryb edycji
+      try {
+        await api.updateFlower(editingKwiat.id, editingKwiat);
+        await loadData(); // Reload data from server
+        setEditingKwiat(null);
+        setShowAddForm(false);
+      } catch (error) {
+        console.error('Błąd podczas aktualizacji kwiatu:', error);
+        setError("Nie udało się zaktualizować kwiatu.");
+      }
+    } else {
+      // Tryb dodawania
+      if (nowy.nazwa && nowy.kolor && nowy.dostawca_id) {
+        try {
+          await api.createFlower(nowy);
+          await loadData(); // Reload data from server
+          setNowy(PUSTY);
+          setShowAddForm(false);
+        } catch (error) {
+          console.error('Błąd podczas dodawania kwiatu:', error);
+          setError("Nie udało się dodać kwiatu.");
+        }
+      }
+    }
+  };
+
+  const handleEdit = (kwiat: Kwiat) => {
+    setEditingKwiat(kwiat);
+    setNowy(kwiat);
+    setShowAddForm(true);
+  };
+
+  const handleDelete = async (id: number, nazwa: string) => {
+    setConfirmDialog({
+      isOpen: true,
+      kwiatId: id,
+      kwiatNazwa: nazwa
+    });
+  };
+
+  const confirmDelete = async () => {
+    try {
+      await api.deleteFlower(confirmDialog.kwiatId);
+      await loadData(); // Reload data from server
+      setConfirmDialog({ isOpen: false, kwiatId: 0, kwiatNazwa: '' });
+    } catch (error) {
+      console.error('Błąd podczas usuwania kwiatu:', error);
+      setError("Nie udało się usunąć kwiatu.");
+    }
+  };
+
+  const handleZmienNowy = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setNowy(prev => ({
       ...prev,
-      [name]: name === 'cena' || name === 'wysokosc' ? parseFloat(value) || 0 : value
+      [name]: name === 'cena' || name === 'wysokosc' || name === 'dostawca_id' ? parseFloat(value) || 0 : value
     }));
   };
 
-  const handleZmienEditing = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleZmienEditing = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     if (!editingKwiat) return;
     
     const { name, value } = e.target;
     setEditingKwiat(prev => ({
       ...prev!,
-      [name]: name === 'cena' || name === 'wysokosc' ? parseFloat(value) || 0 : value
+      [name]: name === 'cena' || name === 'wysokosc' || name === 'dostawca_id' ? parseFloat(value) || 0 : value
     }));
   };
 
@@ -159,74 +189,23 @@ const ListaKwiatow: React.FC = () => {
     }
   };
 
-  const renderPodgladZdjecia = (zdjecie: string) => {
-    if (!zdjecie) {
-      return (
-        <div className="brak-zdjecia">
-          <Flower className="lucide-icon" size={24} color="#888" />
-          <span>Brak zdjęcia</span>
-        </div>
-      );
-    }
-    return <img src={zdjecie} alt="Podgląd" className="podglad-zdjecia" />;
-  };
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+        <p>Ładowanie kwiatów...</p>
+      </div>
+    );
+  }
 
-  const handleEdit = (kwiat: Kwiat) => {
-    setEditingKwiat(kwiat);
-    setShowAddForm(true);
-  };
-
-  const handleSave = () => {
-    if (editingKwiat) {
-      setKwiaty(kwiaty.map(k => k.id === editingKwiat.id ? editingKwiat : k));
-      setEditingKwiat(null);
-      setShowAddForm(false);
-    }
-  };
-
-  const handleAdd = () => {
-    if (editingKwiat) {
-      // Tryb edycji
-      handleSave();
-    } else {
-      // Tryb dodawania
-      if (nowy.nazwa && nowy.odmiana && nowy.kolor && nowy.cena > 0) {
-        const kwiat: Kwiat = {
-          id: Date.now(),
-          nazwa: nowy.nazwa,
-          odmiana: nowy.odmiana,
-          kolor: nowy.kolor,
-          wysokosc: nowy.wysokosc,
-          cena: nowy.cena,
-          zdjecie: nowy.zdjecie,
-          dostawcaId: nowy.dostawcaId
-        };
-        setKwiaty([...kwiaty, kwiat]);
-        setNowy(PUSTY);
-        setShowAddForm(false);
-      }
-    }
-  };
-
-  const handleUsun = (index: number) => {
-    const kwiat = kwiaty[index];
-    setConfirmDialog({
-      isOpen: true,
-      itemIndex: index,
-      itemName: kwiat.nazwa
-    });
-  };
-
-  const confirmUsun = () => {
-    if (confirmDialog.itemIndex >= 0) {
-      setKwiaty(kwiaty.filter((_, idx) => idx !== confirmDialog.itemIndex));
-    }
-    setConfirmDialog({ isOpen: false, itemIndex: -1, itemName: "" });
-  };
-
-  const cancelUsun = () => {
-    setConfirmDialog({ isOpen: false, itemIndex: -1, itemName: "" });
-  };
+  if (error) {
+    return (
+      <div className="error-container">
+        <p className="error-message">{error}</p>
+        <button onClick={loadData} className="btn btn-primary">Spróbuj ponownie</button>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -349,7 +328,7 @@ const ListaKwiatow: React.FC = () => {
                 />
               </div>
 
-              {/* Rząd 3: Kolor, Odmiana, Cena */}
+              {/* Rząd 3: Kolor, Wysokość, Cena */}
               <div className="d-flex gap-2">
                 <div className="form-group" style={{ flex: 1 }}>
                   <label className="form-label">Kolor</label>
@@ -364,51 +343,46 @@ const ListaKwiatow: React.FC = () => {
                 </div>
                 
                 <div className="form-group" style={{ flex: 1 }}>
-                  <label className="form-label">Odmiana</label>
+                  <label className="form-label">Wysokość (cm)</label>
                   <input
-                    type="text"
-                    name="odmiana"
+                    type="number"
+                    name="wysokosc"
                     className="form-input"
-                    value={editingKwiat ? editingKwiat.odmiana : nowy.odmiana}
+                    value={editingKwiat ? editingKwiat.wysokosc || 0 : nowy.wysokosc || 0}
                     onChange={editingKwiat ? handleZmienEditing : handleZmienNowy}
-                    placeholder="Odmiana kwiatu"
+                    placeholder="Wysokość w cm"
                   />
                 </div>
                 
-                <div className="form-group" style={{ flex: 0.7 }}>
+                <div className="form-group" style={{ flex: 1 }}>
                   <label className="form-label">Cena (zł)</label>
                   <input
                     type="number"
                     name="cena"
                     className="form-input"
-                    value={editingKwiat ? editingKwiat.cena : nowy.cena}
+                    value={editingKwiat ? editingKwiat.cena || 0 : nowy.cena || 0}
                     onChange={editingKwiat ? handleZmienEditing : handleZmienNowy}
-                    placeholder="0.00"
-                    min="0"
+                    placeholder="Cena w zł"
                     step="0.01"
                   />
                 </div>
               </div>
 
-              {/* Separator */}
-              <hr style={{ margin: '20px 0', border: 'none', borderTop: '1px solid #e0e0e0' }} />
-
-              {/* Rząd 4: Nazwa dostawcy (pełna szerokość) */}
+              {/* Rząd 4: Dostawca */}
               <div className="form-group">
                 <label className="form-label">Dostawca</label>
                 <select
-                  name="dostawcaId"
+                  name="dostawca_id"
                   className="form-input"
-                  value={editingKwiat ? editingKwiat.dostawcaId : nowy.dostawcaId}
-                  onChange={e => {
-                    if (editingKwiat) setEditingKwiat({ ...editingKwiat, dostawcaId: e.target.value });
-                    else setNowy({ ...nowy, dostawcaId: e.target.value });
-                  }}
+                  value={editingKwiat ? editingKwiat.dostawca_id : nowy.dostawca_id}
+                  onChange={editingKwiat ? handleZmienEditing : handleZmienNowy}
                   required
                 >
                   <option value="">Wybierz dostawcę</option>
-                  {dostawcy.map(d => (
-                    <option key={d.id} value={d.id}>{d.nazwa}</option>
+                  {dostawcy.map(dostawca => (
+                    <option key={dostawca.id} value={dostawca.id}>
+                      {dostawca.nazwa}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -459,24 +433,6 @@ const ListaKwiatow: React.FC = () => {
                       <svg viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 20l-8-8h16z"/>
                       </svg>
-                    </>
-                  )}
-                </span>
-              </th>
-              <th 
-                className="sortable-header"
-                onClick={() => handleSort('odmiana')}
-              >
-                Odmiana
-                <span className={`sort-icon ${sortConfig.key === 'odmiana' ? 'active' : ''}`}>
-                  {sortConfig.key === 'odmiana' && sortConfig.direction === 'asc' ? (
-                    <ChevronUp size={16} />
-                  ) : sortConfig.key === 'odmiana' && sortConfig.direction === 'desc' ? (
-                    <ChevronDown size={16} />
-                  ) : (
-                    <>
-                      <ChevronUp size={16} />
-                      <ChevronDown size={16} />
                     </>
                   )}
                 </span>
@@ -545,14 +501,14 @@ const ListaKwiatow: React.FC = () => {
               <tr>
                 <td colSpan={8} className="text-center">Ładowanie...</td>
               </tr>
-            ) : sortedAndFilteredKwiaty.length === 0 ? (
+            ) : sortedKwiaty.length === 0 ? (
               <tr>
                 <td colSpan={8} className="text-center">
                   {wyszukiwanie ? 'Nie znaleziono kwiatów spełniających kryteria wyszukiwania' : 'Brak kwiatów do wyświetlenia'}
                 </td>
               </tr>
             ) : (
-              sortedAndFilteredKwiaty.map((kwiat, index) => (
+              sortedKwiaty.map((kwiat, index) => (
                 <tr key={kwiat.id}>
                   <td>
                     <div className="project-info">
@@ -569,7 +525,6 @@ const ListaKwiatow: React.FC = () => {
                       </div>
                     </div>
                   </td>
-                  <td>{kwiat.odmiana}</td>
                   <td>
                     {kwiat.kolor || 'Brak koloru'}
                   </td>
@@ -577,16 +532,13 @@ const ListaKwiatow: React.FC = () => {
                   <td className="text-right font-weight-500">{kwiat.cena.toFixed(2)} zł</td>
                   <td>
                     {(() => {
-                      const d = dostawcy.find(ds => ds.id === kwiat.dostawcaId);
+                      const d = dostawcy.find(ds => ds.id === kwiat.dostawca_id);
                       return d ? (
                         <div className="firma-info">
                           <div className="firma-nazwa">{d.nazwa}</div>
-                          {d.nazwaFirmy && <div className="firma-nazwa">{d.nazwaFirmy}</div>}
-                          {d.ulica && <div className="firma-adres">{d.ulica}</div>}
-                          {(d.kodPocztowy || d.miasto) && <div className="firma-adres">{d.kodPocztowy} {d.miasto}</div>}
+                          {d.adres && <div className="firma-adres">{d.adres}</div>}
                           {d.telefon && <div className="firma-adres">tel. {d.telefon}</div>}
-                          {d.mail && <div className="firma-adres">{d.mail}</div>}
-                          {d.nip && <div className="firma-nip">NIP: {d.nip}</div>}
+                          {d.email && <div className="firma-adres">{d.email}</div>}
                         </div>
                       ) : <span className="no-firma">Brak</span>;
                     })()}
@@ -599,7 +551,7 @@ const ListaKwiatow: React.FC = () => {
                           alt={kwiat.nazwa || 'Kwiat'} 
                           className="product-image" 
                           onClick={() => {
-                            setSelectedImage(kwiat.zdjecie);
+                            setSelectedImage(kwiat.zdjecie || null);
                             setShowImageModal(true);
                           }}
                           title="Kliknij aby powiększyć"
@@ -622,7 +574,7 @@ const ListaKwiatow: React.FC = () => {
                       </button>
                       <button 
                         className="table-action-btn delete-btn" 
-                        onClick={() => handleUsun(index)}
+                        onClick={() => handleDelete(kwiat.id, kwiat.nazwa)}
                         title="Usuń kwiat"
                       >
                         <Trash2 size={16} />
@@ -635,7 +587,7 @@ const ListaKwiatow: React.FC = () => {
           </tbody>
         </table>
         
-        {sortedAndFilteredKwiaty.length === 0 && !loading && (
+        {sortedKwiaty.length === 0 && !loading && (
           <div className="empty-state">
             <div className="empty-state-icon">
               <Search size={48} />
@@ -651,13 +603,13 @@ const ListaKwiatow: React.FC = () => {
        <ConfirmDialog
          isOpen={confirmDialog.isOpen}
          title="Potwierdź usunięcie"
-         message={`Czy na pewno chcesz usunąć kwiat "${confirmDialog.itemName}"?`}
-         onConfirm={confirmUsun}
-         onCancel={cancelUsun}
+         message={`Czy na pewno chcesz usunąć kwiat "${confirmDialog.kwiatNazwa}"?`}
+         onConfirm={confirmDelete}
+         onCancel={() => setConfirmDialog({ isOpen: false, kwiatId: 0, kwiatNazwa: '' })}
        />
 
       {/* Image Modal */}
-      {showImageModal && (
+      {showImageModal && selectedImage && (
         <ImageModal
           isOpen={showImageModal}
           imageSrc={selectedImage}

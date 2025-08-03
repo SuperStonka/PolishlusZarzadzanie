@@ -1,40 +1,54 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Plus, Edit, Trash2, Upload, X, Package, ChevronUp, ChevronDown } from 'lucide-react';
+import { Plus, Edit, Trash2, Search, ChevronUp, ChevronDown, Package, X, Upload } from 'lucide-react';
+import api from '../services/api';
 import ConfirmDialog from '../components/ConfirmDialog';
 import ImageModal from '../components/ImageModal';
 
 interface Produkt {
   id: number;
-  kod_produktu: string;
+  kod: string;
   nazwa: string;
-  kategoria: string;
-  ilosc: number;
+  kategoria_id: number;
+  opis?: string;
+  cena?: number;
+  jednostka?: string;
   zdjecie?: string;
+  ilosc?: number;
   uwagi?: string;
+}
+
+interface KategoriaProduktu {
+  id: number;
+  nazwa: string;
+  opis?: string;
 }
 
 const PUSTY: Produkt = {
   id: 0,
-  kod_produktu: '',
+  kod: '',
   nazwa: '',
-  kategoria: '',
-  ilosc: 0,
+  kategoria_id: 0,
+  opis: '',
+  cena: 0,
+  jednostka: '',
   zdjecie: '',
+  ilosc: 0,
   uwagi: ''
 };
 
 const ListaProduktow: React.FC = () => {
   const [produkty, setProdukty] = useState<Produkt[]>([]);
+  const [kategorie, setKategorie] = useState<KategoriaProduktu[]>([]);
   const [wyszukiwanie, setWyszukiwanie] = useState('');
-  const [kategoriaFilter, setKategoriaFilter] = useState('');
+  const [kategoriaFilter, setKategoriaFilter] = useState<string>('');
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingProdukt, setEditingProdukt] = useState<Produkt | null>(null);
   const [nowy, setNowy] = useState<Produkt>(PUSTY);
-  const [confirmDialog, setConfirmDialog] = useState({
-    isOpen: false,
-    produktId: -1,
-    produktNazwa: ''
-  });
+  const [confirmDialog, setConfirmDialog] = useState<{
+    isOpen: boolean;
+    produktId: number;
+    produktNazwa: string;
+  }>({ isOpen: false, produktId: 0, produktNazwa: '' });
   const [imageModal, setImageModal] = useState({
     isOpen: false,
     imageSrc: '',
@@ -43,29 +57,41 @@ const ListaProduktow: React.FC = () => {
   const [sortConfig, setSortConfig] = useState<{
     key: keyof Produkt | null;
     direction: 'asc' | 'desc';
-  }>({ key: 'kod_produktu', direction: 'asc' });
+  }>({ key: 'kod', direction: 'asc' });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    loadProdukty();
+    loadData();
   }, []);
 
-  const loadProdukty = async () => {
+  const loadData = async () => {
     try {
-      const response = await fetch('/data/produkty.json');
-      const data = await response.json();
-      setProdukty(data);
+      setLoading(true);
+      setError(null);
+      
+      const [produktyData, kategorieData] = await Promise.all([
+        api.getProducts(),
+        api.get('/kategorie-produktow') // Assuming this endpoint exists
+      ]);
+      
+      setProdukty(produktyData as Produkt[]);
+      setKategorie(kategorieData as KategoriaProduktu[]);
+      
     } catch (error) {
-      console.error('Błąd podczas ładowania produktów:', error);
+      console.error('Błąd podczas ładowania danych:', error);
+      setError("Nie udało się pobrać danych. Sprawdź połączenie z serwerem.");
+    } finally {
+      setLoading(false);
     }
   };
 
   const filteredProdukty = produkty.filter(produkt => {
     const matchesSearch = (produkt.nazwa || '').toLowerCase().includes(wyszukiwanie.toLowerCase()) ||
-                         (produkt.kategoria || '').toLowerCase().includes(wyszukiwanie.toLowerCase()) ||
-                         (produkt.kod_produktu || '').toLowerCase().includes(wyszukiwanie.toLowerCase()) ||
-                         (produkt.uwagi || '').toLowerCase().includes(wyszukiwanie.toLowerCase());
+                         (produkt.kod || '').toLowerCase().includes(wyszukiwanie.toLowerCase()) ||
+                         (produkt.opis || '').toLowerCase().includes(wyszukiwanie.toLowerCase());
     
-    const matchesCategory = !kategoriaFilter || (produkt.kategoria || '') === kategoriaFilter;
+    const matchesCategory = !kategoriaFilter || produkt.kategoria_id.toString() === kategoriaFilter;
     
     return matchesSearch && matchesCategory;
   });
@@ -102,22 +128,30 @@ const ListaProduktow: React.FC = () => {
     setSortConfig({ key, direction });
   };
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     if (editingProdukt) {
       // Tryb edycji
-      setProdukty(produkty.map(p => p.id === editingProdukt.id ? editingProdukt : p));
-      setEditingProdukt(null);
-      setShowAddForm(false);
+      try {
+        await api.updateProduct(editingProdukt.id, editingProdukt);
+        await loadData(); // Reload data from server
+        setEditingProdukt(null);
+        setShowAddForm(false);
+      } catch (error) {
+        console.error('Błąd podczas aktualizacji produktu:', error);
+        setError("Nie udało się zaktualizować produktu.");
+      }
     } else {
       // Tryb dodawania
-             if (nowy.nazwa && nowy.kategoria && nowy.kod_produktu) {
-         const produkt: Produkt = {
-           ...nowy,
-           id: Date.now()
-         };
-        setProdukty([...produkty, produkt]);
-        setNowy(PUSTY);
-        setShowAddForm(false);
+      if (nowy.nazwa && nowy.kod && nowy.kategoria_id) {
+        try {
+          await api.createProduct(nowy);
+          await loadData(); // Reload data from server
+          setNowy(PUSTY);
+          setShowAddForm(false);
+        } catch (error) {
+          console.error('Błąd podczas dodawania produktu:', error);
+          setError("Nie udało się dodać produktu.");
+        }
       }
     }
   };
@@ -128,7 +162,7 @@ const ListaProduktow: React.FC = () => {
     setShowAddForm(true);
   };
 
-  const handleDelete = (id: number, nazwa: string) => {
+  const handleDelete = async (id: number, nazwa: string) => {
     setConfirmDialog({
       isOpen: true,
       produktId: id,
@@ -136,11 +170,15 @@ const ListaProduktow: React.FC = () => {
     });
   };
 
-  const confirmDelete = () => {
-    if (confirmDialog.produktId >= 0) {
-      setProdukty(produkty.filter(p => p.id !== confirmDialog.produktId));
+  const confirmDelete = async () => {
+    try {
+      await api.deleteProduct(confirmDialog.produktId);
+      await loadData(); // Reload data from server
+      setConfirmDialog({ isOpen: false, produktId: 0, produktNazwa: '' });
+    } catch (error) {
+      console.error('Błąd podczas usuwania produktu:', error);
+      setError("Nie udało się usunąć produktu.");
     }
-    setConfirmDialog({ isOpen: false, produktId: -1, produktNazwa: '' });
   };
 
   const handleImageUpload = (file: File, isEditing: boolean) => {
@@ -217,15 +255,11 @@ const ListaProduktow: React.FC = () => {
                 style={{ minWidth: '150px' }}
               >
                 <option value="">Wszystkie kategorie</option>
-                <option value="Ceramika">Ceramika</option>
-                <option value="Szkło">Szkło</option>
-                <option value="Metal">Metal</option>
-                <option value="Dekoracje">Dekoracje</option>
-                <option value="Naturalne">Naturalne</option>
-                <option value="Porcelana">Porcelana</option>
-                <option value="Plastik">Plastik</option>
-                <option value="Beton">Beton</option>
-                <option value="Drewno">Drewno</option>
+                {kategorie.map(kategoria => (
+                  <option key={kategoria.id} value={kategoria.id}>
+                    {kategoria.nazwa}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -305,9 +339,9 @@ const ListaProduktow: React.FC = () => {
                   <label className="form-label">Kod produktu</label>
                   <input
                     type="text"
-                    name="kod_produktu"
+                    name="kod"
                     className="form-input"
-                    value={editingProdukt ? editingProdukt.kod_produktu : nowy.kod_produktu}
+                    value={editingProdukt ? editingProdukt.kod : nowy.kod}
                     onChange={editingProdukt ? handleZmienEditing : handleZmienNowy}
                     placeholder="Kod produktu"
                   />
@@ -316,21 +350,17 @@ const ListaProduktow: React.FC = () => {
                 <div className="form-group" style={{ flex: 1 }}>
                   <label className="form-label">Kategoria</label>
                   <select
-                    name="kategoria"
+                    name="kategoria_id"
                     className="form-select"
-                    value={editingProdukt ? editingProdukt.kategoria : nowy.kategoria}
+                    value={editingProdukt ? editingProdukt.kategoria_id : nowy.kategoria_id}
                     onChange={editingProdukt ? handleZmienEditing : handleZmienNowy}
                   >
                     <option value="">Wybierz kategorie</option>
-                    <option value="Ceramika">Ceramika</option>
-                    <option value="Szkło">Szkło</option>
-                    <option value="Metal">Metal</option>
-                    <option value="Dekoracje">Dekoracje</option>
-                    <option value="Naturalne">Naturalne</option>
-                    <option value="Porcelana">Porcelana</option>
-                    <option value="Plastik">Plastik</option>
-                    <option value="Beton">Beton</option>
-                    <option value="Drewno">Drewno</option>
+                    {kategorie.map(kategoria => (
+                      <option key={kategoria.id} value={kategoria.id}>
+                        {kategoria.nazwa}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 
@@ -406,13 +436,13 @@ const ListaProduktow: React.FC = () => {
             <tr>
               <th 
                 className="sortable-header"
-                onClick={() => handleSort('kod_produktu')}
+                onClick={() => handleSort('kod')}
               >
                 Kod produktu
-                <span className={`sort-icon ${sortConfig.key === 'kod_produktu' ? 'active' : ''}`}>
-                  {sortConfig.key === 'kod_produktu' && sortConfig.direction === 'asc' ? (
+                <span className={`sort-icon ${sortConfig.key === 'kod' ? 'active' : ''}`}>
+                  {sortConfig.key === 'kod' && sortConfig.direction === 'asc' ? (
                     <ChevronUp size={16} />
-                  ) : sortConfig.key === 'kod_produktu' && sortConfig.direction === 'desc' ? (
+                  ) : sortConfig.key === 'kod' && sortConfig.direction === 'desc' ? (
                     <ChevronDown size={16} />
                   ) : (
                     <>
@@ -442,13 +472,13 @@ const ListaProduktow: React.FC = () => {
               </th>
               <th 
                 className="sortable-header"
-                onClick={() => handleSort('kategoria')}
+                onClick={() => handleSort('kategoria_id')}
               >
                 Kategoria
-                <span className={`sort-icon ${sortConfig.key === 'kategoria' ? 'active' : ''}`}>
-                  {sortConfig.key === 'kategoria' && sortConfig.direction === 'asc' ? (
+                <span className={`sort-icon ${sortConfig.key === 'kategoria_id' ? 'active' : ''}`}>
+                  {sortConfig.key === 'kategoria_id' && sortConfig.direction === 'asc' ? (
                     <ChevronUp size={16} />
-                  ) : sortConfig.key === 'kategoria' && sortConfig.direction === 'desc' ? (
+                  ) : sortConfig.key === 'kategoria_id' && sortConfig.direction === 'desc' ? (
                     <ChevronDown size={16} />
                   ) : (
                     <>
@@ -499,7 +529,15 @@ const ListaProduktow: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {sortedProdukty.length === 0 ? (
+            {loading ? (
+              <tr>
+                <td colSpan={7} className="text-center">Ładowanie produktów...</td>
+              </tr>
+            ) : error ? (
+              <tr>
+                <td colSpan={7} className="text-center text-danger">{error}</td>
+              </tr>
+            ) : sortedProdukty.length === 0 ? (
               <tr>
                 <td colSpan={7} className="text-center">
                   {wyszukiwanie || kategoriaFilter ? 'Brak produktów spełniających kryteria wyszukiwania' : 'Brak produktów'}
@@ -509,7 +547,7 @@ const ListaProduktow: React.FC = () => {
               sortedProdukty.map(produkt => (
               <tr key={produkt.id}>
                 <td>
-                  {produkt.kod_produktu || 'Brak kodu'}
+                  {produkt.kod || 'Brak kodu'}
                 </td>
                 <td>
                   <div className="project-info">
@@ -527,7 +565,7 @@ const ListaProduktow: React.FC = () => {
                   </div>
                 </td>
                 <td>
-                  {produkt.kategoria || 'Brak kategorii'}
+                  {kategorie.find(k => k.id === produkt.kategoria_id)?.nazwa || 'Brak kategorii'}
                 </td>
                 <td>
                   <div className="product-image-container">
@@ -589,7 +627,7 @@ const ListaProduktow: React.FC = () => {
         title="Potwierdź usunięcie"
         message={`Czy na pewno chcesz usunąć produkt "${confirmDialog.produktNazwa}"?`}
         onConfirm={confirmDelete}
-        onCancel={() => setConfirmDialog({ isOpen: false, produktId: -1, produktNazwa: '' })}
+        onCancel={() => setConfirmDialog({ isOpen: false, produktId: 0, produktNazwa: '' })}
       />
 
       {/* Image Modal */}
