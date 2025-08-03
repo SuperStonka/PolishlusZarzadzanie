@@ -34,8 +34,21 @@ async function dropAllTables() {
 
     for (const table of tables) {
       try {
-        await db.query(`DROP TABLE IF EXISTS ${table} CASCADE`);
-        console.log(`✅ Dropped table: ${table}`);
+        // Sprawdź czy tabela istnieje przed usunięciem
+        const checkResult = await db.query(`
+          SELECT EXISTS (
+            SELECT FROM information_schema.tables 
+            WHERE table_schema = 'public' 
+            AND table_name = $1
+          );
+        `, [table]);
+        
+        if (checkResult.rows[0].exists) {
+          await db.query(`DROP TABLE IF EXISTS ${table} CASCADE`);
+          console.log(`✅ Dropped table: ${table}`);
+        } else {
+          console.log(`ℹ️ Table ${table} does not exist, skipping`);
+        }
       } catch (error) {
         console.log(`⚠️ Could not drop table ${table}:`, error.message);
       }
@@ -43,13 +56,25 @@ async function dropAllTables() {
 
     // Usuń funkcje i rozszerzenia
     try {
-      await db.query('DROP FUNCTION IF EXISTS update_updated_at_column() CASCADE');
-      console.log('✅ Dropped function: update_updated_at_column');
+      const functionCheck = await db.query(`
+        SELECT EXISTS (
+          SELECT FROM information_schema.routines 
+          WHERE routine_schema = 'public' 
+          AND routine_name = 'update_updated_at_column'
+        );
+      `);
+      
+      if (functionCheck.rows[0].exists) {
+        await db.query('DROP FUNCTION IF EXISTS update_updated_at_column() CASCADE');
+        console.log('✅ Dropped function: update_updated_at_column');
+      } else {
+        console.log('ℹ️ Function update_updated_at_column does not exist, skipping');
+      }
     } catch (error) {
       console.log('⚠️ Could not drop function:', error.message);
     }
 
-    console.log('✅ All tables and functions dropped successfully');
+    console.log('✅ All existing tables and functions dropped successfully');
   } catch (error) {
     console.error('❌ Error dropping tables:', error);
     throw error;
@@ -68,27 +93,14 @@ async function setupDatabase() {
     const schemaPath = path.join(__dirname, '../config/schema.sql');
     const schema = await fs.readFile(schemaPath, 'utf8');
 
-    // Split schema into individual statements
-    const statements = schema
-      .split(';')
-      .map(stmt => stmt.trim())
-      .filter(stmt => stmt.length > 0 && !stmt.startsWith('--'));
-
-    // Execute each statement
-    for (const statement of statements) {
-      if (statement.trim()) {
-        try {
-          await db.query(statement);
-        } catch (error) {
-          // Ignore errors for existing objects
-          if (!error.message.includes('already exists')) {
-            console.error('Schema execution error:', error.message);
-          }
-        }
-      }
+    // Execute the entire schema as one transaction
+    try {
+      await db.query(schema);
+      console.log('✅ Database schema created successfully');
+    } catch (error) {
+      console.error('❌ Schema execution failed:', error.message);
+      throw error;
     }
-
-    console.log('✅ Database schema created successfully');
 
     // Run data migration (always run since we dropped everything)
     console.log('📦 Migrating sample data...');
