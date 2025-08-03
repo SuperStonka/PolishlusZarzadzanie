@@ -65,7 +65,7 @@ Thumbs.db
 uploads/
 
 # Database files
-*.sql
+#*.sql
 *.db
 
 # Temporary files
