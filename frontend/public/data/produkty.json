@@ -1,0 +1,182 @@
+[
+  {
+    "id": 1,
+    "kod_produktu": "P001",
+    "nazwa": "Wazon ceramiczny biały",
+    "kategoria": "Ceramika",
+    "ilosc": 15,
+    "zdjecie": "/images/produkty_kwiaty/produkt_01.jpg",
+    "uwagi": "Delikatny, wymaga ostrożnego pakowania"
+  },
+  {
+    "id": 2,
+    "kod_produktu": "P002",
+    "nazwa": "Doniczka terakotowa mała",
+    "kategoria": "Ceramika",
+    "ilosc": 25,
+    "zdjecie": "/images/produkty_kwiaty/produkt_02.jpg",
+    "uwagi": "Odporna na uszkodzenia, standardowe pakowanie"
+  },
+  {
+    "id": 3,
+    "kod_produktu": "P003",
+    "nazwa": "Wazon szklany cylindryczny",
+    "kategoria": "Szkło",
+    "ilosc": 8,
+    "zdjecie": "/images/produkty_kwiaty/produkt_03.jpg",
+    "uwagi": "Bardzo delikatny, wymaga specjalnego opakowania"
+  },
+  {
+    "id": 4,
+    "kod_produktu": "P004",
+    "nazwa": "Koszyk wiklinowy duży",
+    "kategoria": "Dekoracje",
+    "ilosc": 12,
+    "zdjecie": "/images/produkty_kwiaty/produkt_04.jpg",
+    "uwagi": "Naturalny materiał, chronić przed wilgocią"
+  },
+  {
+    "id": 5,
+    "kod_produktu": "P005",
+    "nazwa": "Wazon metalowy złoty",
+    "kategoria": "Metal",
+    "ilosc": 6,
+    "zdjecie": "/images/produkty_kwiaty/produkt_05.jpg",
+    "uwagi": "Trwały, standardowe pakowanie"
+  },
+  {
+    "id": 6,
+    "kod_produktu": "P006",
+    "nazwa": "Doniczka ceramiczna wzorzysta",
+    "kategoria": "Ceramika",
+    "ilosc": 18,
+    "zdjecie": "/images/produkty_kwiaty/produkt_06.jpg",
+    "uwagi": "Wzór może się ścierać, delikatne czyszczenie"
+  },
+  {
+    "id": 7,
+    "kod_produktu": "P007",
+    "nazwa": "Wazon bambusowy eko",
+    "kategoria": "Naturalne",
+    "ilosc": 10,
+    "zdjecie": "/images/produkty_kwiaty/produkt_07.jpg",
+    "uwagi": "Ekologiczny materiał, chronić przed wilgocią"
+  },
+  {
+    "id": 8,
+    "kod_produktu": "P008",
+    "nazwa": "Koszyk jutowy średni",
+    "kategoria": "Naturalne",
+    "ilosc": 14,
+    "zdjecie": "/images/produkty_kwiaty/produkt_08.jpg",
+    "uwagi": "Naturalny materiał, może się kurczyć"
+  },
+  {
+    "id": 9,
+    "kod_produktu": "P009",
+    "nazwa": "Wazon porcelanowy niebieski",
+    "kategoria": "Porcelana",
+    "ilosc": 7,
+    "zdjecie": "/images/produkty_kwiaty/produkt_09.jpg",
+    "uwagi": "Delikatna porcelana, wymaga specjalnej opieki"
+  },
+  {
+    "id": 10,
+    "kod_produktu": "P010",
+    "nazwa": "Doniczka plastikowa kolorowa",
+    "kategoria": "Plastik",
+    "ilosc": 20,
+    "zdjecie": "/images/produkty_kwiaty/produkt_10.jpg",
+    "uwagi": "Trwały plastik, łatwy w utrzymaniu"
+  },
+  {
+    "id": 11,
+    "kod_produktu": "P011",
+    "nazwa": "Wazon szklany kolorowy",
+    "kategoria": "Szkło",
+    "ilosc": 9,
+    "zdjecie": "/images/produkty_kwiaty/produkt_11.jpg",
+    "uwagi": "Kolorowe szkło, delikatne"
+  },
+  {
+    "id": 12,
+    "kod_produktu": "P012",
+    "nazwa": "Koszyk rattanowy okrągły",
+    "kategoria": "Dekoracje",
+    "ilosc": 16,
+    "zdjecie": "/images/produkty_kwiaty/produkt_12.jpg",
+    "uwagi": "Naturalny rattan, chronić przed wilgocią"
+  },
+  {
+    "id": 13,
+    "kod_produktu": "P013",
+    "nazwa": "Wazon betonowy minimalistyczny",
+    "kategoria": "Beton",
+    "ilosc": 5,
+    "zdjecie": "/images/produkty_kwiaty/produkt_13.jpg",
+    "uwagi": "Ciężki beton, wymaga solidnego opakowania"
+  },
+  {
+    "id": 14,
+    "kod_produktu": "P014",
+    "nazwa": "Doniczka wisząca macrame",
+    "kategoria": "Dekoracje",
+    "ilosc": 12,
+    "zdjecie": "/images/produkty_kwiaty/produkt_14.jpg",
+    "uwagi": "Makrama może się plątać, ostrożne pakowanie"
+  },
+  {
+    "id": 15,
+    "kod_produktu": "P015",
+    "nazwa": "Wazon krystalowy luksusowy",
+    "kategoria": "Szkło",
+    "ilosc": 3,
+    "zdjecie": "/images/produkty_kwiaty/produkt_15.jpg",
+    "uwagi": "Luksusowy kryształ, wymaga najwyższej ostrożności"
+  },
+  {
+    "id": 16,
+    "kod_produktu": "P016",
+    "nazwa": "Koszyk słomiany vintage",
+    "kategoria": "Dekoracje",
+    "ilosc": 22,
+    "zdjecie": "/images/produkty_kwiaty/produkt_16.jpg",
+    "uwagi": "Vintage słoma, może być krucha"
+  },
+  {
+    "id": 17,
+    "kod_produktu": "P017",
+    "nazwa": "Wazon drewniany rustykalny",
+    "kategoria": "Drewno",
+    "ilosc": 11,
+    "zdjecie": "/images/produkty_kwiaty/produkt_17.jpg",
+    "uwagi": "Naturalne drewno, chronić przed wilgocią"
+  },
+  {
+    "id": 18,
+    "kod_produktu": "P018",
+    "nazwa": "Doniczka ceramiczna biała",
+    "kategoria": "Ceramika",
+    "ilosc": 30,
+    "zdjecie": "/images/produkty_kwiaty/produkt_18.jpg",
+    "uwagi": "Klasyczna biała ceramika, uniwersalna"
+  },
+  {
+    "id": 19,
+    "kod_produktu": "P019",
+    "nazwa": "Wazon szklany przezroczysty",
+    "kategoria": "Szkło",
+    "ilosc": 15,
+    "zdjecie": "/images/produkty_kwiaty/produkt_19.jpg",
+    "uwagi": "Przezroczyste szkło, eleganckie"
+  },
+  {
+    "id": 20,
+    "kod_produktu": "P020",
+    "nazwa": "Koszyk metalowy industrialny",
+    "kategoria": "Metal",
+    "ilosc": 8,
+    "zdjecie": "/images/produkty_kwiaty/produkt_20.jpg",
+    "uwagi": "Industrialny design, trwały metal"
+  }
+] 

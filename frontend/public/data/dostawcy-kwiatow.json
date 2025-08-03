@@ -1,0 +1,68 @@
+[
+  {
+    "id": "d1",
+    "nazwa": "Flower Paradise",
+    "telefon": "+48 123 456 789",
+    "mail": "zamowienia@flowerparadise.pl",
+    "czyFirma": true,
+    "nazwaFirmy": "Flower Paradise Sp. z o.o.",
+    "ulica": "ul. Kwiatowa 12",
+    "kodPocztowy": "00-001",
+    "miasto": "Warszawa",
+    "nip": "1234567890"
+  },
+  {
+    "id": "d2",
+    "nazwa": "Holland Flowers",
+    "telefon": "+48 234 567 890",
+    "mail": "info@hollandflowers.pl",
+    "czyFirma": true,
+    "nazwaFirmy": "Holland Flowers Import",
+    "ulica": "ul. Tulipanowa 25",
+    "kodPocztowy": "30-002",
+    "miasto": "Kraków",
+    "nip": "9876543210"
+  },
+  {
+    "id": "d3",
+    "nazwa": "Anna Kowalska",
+    "telefon": "+48 345 678 901",
+    "mail": "kontakt@rainbowblooms.pl",
+    "czyFirma": false,
+    "nazwaFirmy": "",
+    "ulica": "",
+    "kodPocztowy": "",
+    "miasto": "",
+    "nip": ""
+  },
+  {
+    "id": "d4",
+    "nazwa": "Elegant Flowers",
+    "telefon": "+48 456 789 012",
+    "mail": "sprzedaz@elegantflowers.pl",
+    "czyFirma": true,
+    "nazwaFirmy": "Elegant Flowers Sp. j.",
+    "ulica": "ul. Elegancka 8",
+    "kodPocztowy": "50-003",
+    "miasto": "Wrocław",
+    "nip": "5555666777"
+  },
+  {
+    "id": "d5",
+    "nazwa": "Seasonal Flowers",
+    "telefon": "+48 567 890 123",
+    "mail": "biuro@seasonalflowers.pl"
+  },
+  {
+    "id": "d6",
+    "nazwa": "Classic Blooms",
+    "telefon": "+48 678 901 234",
+    "mail": "zamowienia@classicblooms.pl"
+  },
+  {
+    "id": "d7",
+    "nazwa": "Holland Flowers",
+    "telefon": "+48 234 567 890",
+    "mail": "info@hollandflowers.pl"
+  }
+] 

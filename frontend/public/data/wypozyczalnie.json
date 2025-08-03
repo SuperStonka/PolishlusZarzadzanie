@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "nazwa": "Wypożyczalnia Dekoracji Ślubnych",
+    "telefon": "+48 123 456 789",
+    "email": "kontakt@dekoracje-slubne.pl",
+    "adres": "ul. Kwiatowa 15, 00-001 Warszawa"
+  },
+  {
+    "id": 2,
+    "nazwa": "Event Rental Pro",
+    "telefon": "+48 987 654 321",
+    "email": "biuro@eventrentalpro.pl",
+    "adres": "ul. Eventowa 7, 30-001 Kraków"
+  },
+  {
+    "id": 3,
+    "nazwa": "Wypożyczalnia Sprzętu Eventowego",
+    "telefon": "+48 555 123 456",
+    "email": "info@eventequipment.pl",
+    "adres": "ul. Przemysłowa 22, 80-001 Gdańsk"
+  },
+  {
+    "id": 4,
+    "nazwa": "Dekoracje i Wypożyczenia",
+    "telefon": "+48 777 888 999",
+    "email": "kontakt@dekoracje-wypozyczenia.pl",
+    "adres": "ul. Dekoracyjna 3, 50-001 Wrocław"
+  },
+  {
+    "id": 5,
+    "nazwa": "Profesjonalne Wypożyczenia Eventowe",
+    "telefon": "+48 111 222 333",
+    "email": "biuro@profwypozyczenia.pl",
+    "adres": "ul. Profesjonalna 12, 40-001 Katowice"
+  }
+] 

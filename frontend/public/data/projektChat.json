@@ -1,0 +1,260 @@
+[
+  {
+    "projektId": 1,
+    "projektName": "WE-2024-001 - Wesele",
+    "messages": [
+      {
+        "id": 1,
+        "projektId": 1,
+        "userId": 1,
+        "userName": "Jan Kowalski",
+        "userRole": "Administrator",
+        "content": "Witam! Projekt WE-2024-001 został zaplanowany na 15 czerwca 2024.",
+        "timestamp": "2024-01-15T10:30:00.000Z",
+        "isOwn": true
+      },
+      {
+        "id": 2,
+        "projektId": 1,
+        "userId": 2,
+        "userName": "Anna Kowalska",
+        "userRole": "Zamawiający",
+        "content": "Dziękuję za potwierdzenie! Czy wszystkie dekoracje w stylu vintage będą gotowe?",
+        "timestamp": "2024-01-15T11:15:00.000Z",
+        "isOwn": false
+      },
+      {
+        "id": 3,
+        "projektId": 1,
+        "userId": 1,
+        "userName": "Jan Kowalski",
+        "userRole": "Administrator",
+        "content": "Tak, wszystkie dekoracje vintage są przygotowane. Kolory kremowy i różowy zgodnie z motywem.",
+        "timestamp": "2024-01-15T11:30:00.000Z",
+        "isOwn": true
+      },
+      {
+        "id": 4,
+        "projektId": 1,
+        "userId": 3,
+        "userName": "Magda Kwiatkowska",
+        "userRole": "Magazynier",
+        "content": "Potwierdzam - wszystkie kwiaty i pojemniki są spakowane i gotowe do transportu.",
+        "timestamp": "2024-01-15T14:20:00.000Z",
+        "isOwn": false
+      },
+      {
+        "id": 5,
+        "projektId": 1,
+        "userId": 4,
+        "userName": "Marcin Nowicki",
+        "userRole": "Kierownik sali",
+        "content": "Sala będzie gotowa na montaż od 14 czerwca od godziny 8:00. Czy potrzebujecie dodatkowego sprzętu?",
+        "timestamp": "2024-01-16T09:45:00.000Z",
+        "isOwn": false
+      },
+      {
+        "id": 6,
+        "projektId": 1,
+        "userId": 1,
+        "userName": "Jan Kowalski",
+        "userRole": "Administrator",
+        "content": "Dziękuję! Mamy własny sprzęt, ale czy możemy liczyć na pomoc przy demontażu 16 czerwca?",
+        "timestamp": "2024-01-16T10:00:00.000Z",
+        "isOwn": true
+      },
+      {
+        "id": 7,
+        "projektId": 1,
+        "userId": 4,
+        "userName": "Marcin Nowicki",
+        "userRole": "Kierownik sali",
+        "content": "Oczywiście! Będę dostępny 16 czerwca od 10:00. Wszystko będzie gotowe.",
+        "timestamp": "2024-01-16T10:15:00.000Z",
+        "isOwn": false
+      }
+    ]
+  },
+  {
+    "projektId": 2,
+    "projektName": "UR-2024-002 - Urodziny",
+    "messages": [
+      {
+        "id": 8,
+        "projektId": 2,
+        "userId": 1,
+        "userName": "Jan Kowalski",
+        "userRole": "Administrator",
+        "content": "Projekt UR-2024-002 - urodziny 8-latka z motywem superbohaterów zaplanowany na 22 lipca.",
+        "timestamp": "2024-02-01T12:00:00.000Z",
+        "isOwn": true
+      },
+      {
+        "id": 9,
+        "projektId": 2,
+        "userId": 5,
+        "userName": "Piotr Nowak",
+        "userRole": "Zamawiający",
+        "content": "Dzień dobry! Czy dekoracje superbohaterów będą odpowiednie dla dzieci?",
+        "timestamp": "2024-02-01T13:30:00.000Z",
+        "isOwn": false
+      },
+      {
+        "id": 10,
+        "projektId": 2,
+        "userId": 1,
+        "userName": "Jan Kowalski",
+        "userRole": "Opiekun",
+        "content": "Tak, mamy specjalne dekoracje dla dzieci - bezpieczne i kolorowe. Będą zachwycone!",
+        "timestamp": "2024-02-01T14:00:00.000Z",
+        "isOwn": true
+      },
+      {
+        "id": 11,
+        "projektId": 2,
+        "userId": 6,
+        "userName": "Maria Nowak",
+        "userRole": "Gospodyni",
+        "content": "Dom będzie gotowy 21 lipca od 14:00. Mamy dużo miejsca na dekoracje.",
+        "timestamp": "2024-02-02T09:15:00.000Z",
+        "isOwn": false
+      },
+      {
+        "id": 12,
+        "projektId": 2,
+        "userId": 3,
+        "userName": "Magda Kwiatkowska",
+        "userRole": "Magazynier",
+        "content": "Wszystkie dekoracje superbohaterów są spakowane. 20 dzieci to nie problem!",
+        "timestamp": "2024-02-02T15:30:00.000Z",
+        "isOwn": false
+      },
+      {
+        "id": 13,
+        "projektId": 2,
+        "userId": 5,
+        "userName": "Piotr Nowak",
+        "userRole": "Zamawiający",
+        "content": "Świetnie! Syn będzie zachwycony. Dziękuję za wszystko!",
+        "timestamp": "2024-02-03T11:45:00.000Z",
+        "isOwn": false
+      },
+      {
+        "id": 14,
+        "projektId": 2,
+        "userId": 1,
+        "userName": "Jan Kowalski",
+        "userRole": "Opiekun",
+        "content": "Projekt zrealizowany pomyślnie! Wszystkie dekoracje zdemontowane 23 lipca o 9:00.",
+        "timestamp": "2024-07-23T10:00:00.000Z",
+        "isOwn": true
+      }
+    ]
+  },
+  {
+    "projektId": 3,
+    "projektName": "KO-2024-003 - Konferencja",
+    "messages": [
+      {
+        "id": 15,
+        "projektId": 3,
+        "userId": 1,
+        "userName": "Jan Kowalski",
+        "userRole": "Opiekun",
+        "content": "Konferencja KO-2024-003 - międzynarodowa konferencja technologiczna dla 200 osób.",
+        "timestamp": "2024-03-12T08:00:00.000Z",
+        "isOwn": true
+      },
+      {
+        "id": 16,
+        "projektId": 3,
+        "userId": 7,
+        "userName": "Magdalena Wiśniewska",
+        "userRole": "Zamawiający",
+        "content": "Dzień dobry! Potrzebujemy profesjonalnych dekoracji dla konferencji biznesowej.",
+        "timestamp": "2024-03-12T09:30:00.000Z",
+        "isOwn": false
+      },
+      {
+        "id": 17,
+        "projektId": 3,
+        "userId": 1,
+        "userName": "Jan Kowalski",
+        "userRole": "Opiekun",
+        "content": "Mamy specjalne dekoracje dla konferencji - eleganckie i profesjonalne. Czy potrzebujecie tłumaczenia?",
+        "timestamp": "2024-03-12T10:00:00.000Z",
+        "isOwn": true
+      },
+      {
+        "id": 18,
+        "projektId": 3,
+        "userId": 7,
+        "userName": "Magdalena Wiśniewska",
+        "userRole": "Zamawiający",
+        "content": "Tak, potrzebujemy tłumaczenia symultaniczne na 3 języki. Hotel zapewnia sprzęt.",
+        "timestamp": "2024-03-12T10:15:00.000Z",
+        "isOwn": false
+      },
+      {
+        "id": 19,
+        "projektId": 3,
+        "userId": 8,
+        "userName": "Tomasz Kowalczyk",
+        "userRole": "Menedżer eventów",
+        "content": "Hotel Business Center gotowy na montaż od 9 września. Sala konferencyjna A będzie dostępna.",
+        "timestamp": "2024-03-13T14:20:00.000Z",
+        "isOwn": false
+      },
+      {
+        "id": 20,
+        "projektId": 3,
+        "userId": 3,
+        "userName": "Magda Kwiatkowska",
+        "userRole": "Magazynier",
+        "content": "Dekoracje konferencyjne przygotowane. Eleganckie kwiaty i pojemniki biznesowe.",
+        "timestamp": "2024-03-14T11:30:00.000Z",
+        "isOwn": false
+      },
+      {
+        "id": 21,
+        "projektId": 3,
+        "userId": 1,
+        "userName": "Jan Kowalski",
+        "userRole": "Opiekun",
+        "content": "Montaż rozpocznie się 9 września o 7:00. Zespół będzie gotowy.",
+        "timestamp": "2024-03-15T16:45:00.000Z",
+        "isOwn": true
+      },
+      {
+        "id": 22,
+        "projektId": 3,
+        "userId": 7,
+        "userName": "Magdalena Wiśniewska",
+        "userRole": "Zamawiający",
+        "content": "Doskonale! Konferencja będzie trwała 10-11 września. Dziękuję za profesjonalne podejście.",
+        "timestamp": "2024-03-16T12:00:00.000Z",
+        "isOwn": false
+      },
+      {
+        "id": 23,
+        "projektId": 3,
+        "userId": 1,
+        "userName": "Jan Kowalski",
+        "userRole": "Opiekun",
+        "content": "Montaż w toku. Wszystko idzie zgodnie z planem.",
+        "timestamp": "2024-09-09T08:30:00.000Z",
+        "isOwn": true
+      },
+      {
+        "id": 24,
+        "projektId": 3,
+        "userId": 8,
+        "userName": "Tomasz Kowalczyk",
+        "userRole": "Menedżer eventów",
+        "content": "Dekoracje wyglądają świetnie! Goście będą zachwyceni.",
+        "timestamp": "2024-09-09T15:20:00.000Z",
+        "isOwn": false
+      }
+    ]
+  }
+] 

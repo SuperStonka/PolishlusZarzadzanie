@@ -1,0 +1,254 @@
+[
+  {
+    "id": 1,
+    "numerZamowienia": "ZK-20240601-001",
+    "status": "nowe",
+    "dataUtworzenia": "2024-06-01",
+    "dataRealizacji": "2024-06-10",
+    "dostawca": "Flower Paradise",
+    "uwagi": "Zamówienie testowe do wdrożenia nowego modelu.",
+    "pozycje": [
+      {
+        "kwiatId": 1,
+        "poziomy": [
+          { "cenaOd": 8.0, "cenaDo": 9.0, "ilosc": 100 },
+          { "cenaOd": 9.01, "cenaDo": 10.0, "ilosc": 50 }
+        ]
+      },
+      {
+        "kwiatId": 2,
+        "poziomy": [
+          { "cenaOd": 4.0, "cenaDo": 5.0, "ilosc": 200 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "numerZamowienia": "ZK-20240528-002",
+    "status": "w_realizacji",
+    "dataUtworzenia": "2024-05-28",
+    "dataRealizacji": "2024-06-05",
+    "dostawca": "Green Garden",
+    "uwagi": "Pilne zamówienie na wesele - czerwone róże premium",
+    "pozycje": [
+      {
+        "kwiatId": 3,
+        "poziomy": [
+          { "cenaOd": 12.0, "cenaDo": 15.0, "ilosc": 150 },
+          { "cenaOd": 15.01, "cenaDo": 18.0, "ilosc": 75 }
+        ]
+      },
+      {
+        "kwiatId": 4,
+        "poziomy": [
+          { "cenaOd": 6.0, "cenaDo": 8.0, "ilosc": 300 }
+        ]
+      },
+      {
+        "kwiatId": 5,
+        "poziomy": [
+          { "cenaOd": 3.5, "cenaDo": 4.5, "ilosc": 500 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "numerZamowienia": "ZK-20240520-003",
+    "status": "zrealizowane",
+    "dataUtworzenia": "2024-05-20",
+    "dataRealizacji": "2024-05-25",
+    "dostawca": "Flora Express",
+    "uwagi": "Zamówienie zrealizowane zgodnie z harmonogramem",
+    "pozycje": [
+      {
+        "kwiatId": 6,
+        "poziomy": [
+          { "cenaOd": 7.0, "cenaDo": 9.0, "ilosc": 120 }
+        ]
+      },
+      {
+        "kwiatId": 7,
+        "poziomy": [
+          { "cenaOd": 5.0, "cenaDo": 6.5, "ilosc": 250 },
+          { "cenaOd": 6.51, "cenaDo": 8.0, "ilosc": 100 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "numerZamowienia": "ZK-20240515-004",
+    "status": "anulowane",
+    "dataUtworzenia": "2024-05-15",
+    "dataRealizacji": "2024-05-22",
+    "dostawca": "Rose Garden",
+    "uwagi": "Anulowane przez klienta - zmiana terminu imprezy",
+    "pozycje": [
+      {
+        "kwiatId": 8,
+        "poziomy": [
+          { "cenaOd": 10.0, "cenaDo": 12.0, "ilosc": 80 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "numerZamowienia": "ZK-20240602-005",
+    "status": "nowe",
+    "dataUtworzenia": "2024-06-02",
+    "dataRealizacji": "2024-06-12",
+    "dostawca": "Tulipan House",
+    "uwagi": "Duże zamówienie na event firmowy - różne kolory",
+    "pozycje": [
+      {
+        "kwiatId": 9,
+        "poziomy": [
+          { "cenaOd": 4.5, "cenaDo": 6.0, "ilosc": 400 },
+          { "cenaOd": 6.01, "cenaDo": 7.5, "ilosc": 200 }
+        ]
+      },
+      {
+        "kwiatId": 10,
+        "poziomy": [
+          { "cenaOd": 8.0, "cenaDo": 10.0, "ilosc": 150 }
+        ]
+      },
+      {
+        "kwiatId": 11,
+        "poziomy": [
+          { "cenaOd": 6.0, "cenaDo": 7.5, "ilosc": 300 },
+          { "cenaOd": 7.51, "cenaDo": 9.0, "ilosc": 150 }
+        ]
+      },
+      {
+        "kwiatId": 12,
+        "poziomy": [
+          { "cenaOd": 3.0, "cenaDo": 4.0, "ilosc": 600 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "numerZamowienia": "ZK-20240530-006",
+    "status": "w_realizacji",
+    "dataUtworzenia": "2024-05-30",
+    "dataRealizacji": "2024-06-08",
+    "dostawca": "Orchid World",
+    "uwagi": "Ekskluzywne orchidee na galę charytatywną",
+    "pozycje": [
+      {
+        "kwiatId": 13,
+        "poziomy": [
+          { "cenaOd": 25.0, "cenaDo": 30.0, "ilosc": 50 },
+          { "cenaOd": 30.01, "cenaDo": 35.0, "ilosc": 25 }
+        ]
+      },
+      {
+        "kwiatId": 14,
+        "poziomy": [
+          { "cenaOd": 20.0, "cenaDo": 25.0, "ilosc": 40 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "numerZamowienia": "ZK-20240603-007",
+    "status": "nowe",
+    "dataUtworzenia": "2024-06-03",
+    "dataRealizacji": "2024-06-15",
+    "dostawca": "Sunflower Fields",
+    "uwagi": "Słoneczniki na letni festiwal - duże ilości",
+    "pozycje": [
+      {
+        "kwiatId": 15,
+        "poziomy": [
+          { "cenaOd": 2.5, "cenaDo": 3.5, "ilosc": 1000 },
+          { "cenaOd": 3.51, "cenaDo": 4.5, "ilosc": 500 }
+        ]
+      },
+      {
+        "kwiatId": 16,
+        "poziomy": [
+          { "cenaOd": 3.0, "cenaDo": 4.0, "ilosc": 800 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "numerZamowienia": "ZK-20240518-008",
+    "status": "zrealizowane",
+    "dataUtworzenia": "2024-05-18",
+    "dataRealizacji": "2024-05-28",
+    "dostawca": "Lily Valley",
+    "uwagi": "Lilie na komunię - białe i różowe",
+    "pozycje": [
+      {
+        "kwiatId": 17,
+        "poziomy": [
+          { "cenaOd": 9.0, "cenaDo": 11.0, "ilosc": 200 },
+          { "cenaOd": 11.01, "cenaDo": 13.0, "ilosc": 100 }
+        ]
+      },
+      {
+        "kwiatId": 18,
+        "poziomy": [
+          { "cenaOd": 8.5, "cenaDo": 10.5, "ilosc": 150 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "numerZamowienia": "ZK-20240604-009",
+    "status": "nowe",
+    "dataUtworzenia": "2024-06-04",
+    "dataRealizacji": "2024-06-18",
+    "dostawca": "Carnation Corner",
+    "uwagi": "Goździki na dekoracje świąteczne",
+    "pozycje": [
+      {
+        "kwiatId": 19,
+        "poziomy": [
+          { "cenaOd": 2.0, "cenaDo": 3.0, "ilosc": 1200 },
+          { "cenaOd": 3.01, "cenaDo": 4.0, "ilosc": 600 }
+        ]
+      },
+      {
+        "kwiatId": 20,
+        "poziomy": [
+          { "cenaOd": 2.5, "cenaDo": 3.5, "ilosc": 900 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "numerZamowienia": "ZK-20240601-010",
+    "status": "w_realizacji",
+    "dataUtworzenia": "2024-06-01",
+    "dataRealizacji": "2024-06-11",
+    "dostawca": "Peony Palace",
+    "uwagi": "Piwonie na ślub - różowe i białe odmiany premium",
+    "pozycje": [
+      {
+        "kwiatId": 21,
+        "poziomy": [
+          { "cenaOd": 15.0, "cenaDo": 18.0, "ilosc": 80 },
+          { "cenaOd": 18.01, "cenaDo": 22.0, "ilosc": 40 }
+        ]
+      },
+      {
+        "kwiatId": 22,
+        "poziomy": [
+          { "cenaOd": 14.0, "cenaDo": 17.0, "ilosc": 60 }
+        ]
+      }
+    ]
+  }
+] 

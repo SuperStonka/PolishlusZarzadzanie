@@ -1,0 +1,121 @@
+[
+  {
+    "id": 1,
+    "login": "jan.kowalski",
+    "imie": "Jan",
+    "nazwisko": "Kowalski",
+    "rola": 1,
+    "haslo": "haslo123",
+    "mail": "jan.kowalski@email.com",
+    "avatar": "/images/avatars/avatar_01.png"
+  },
+  {
+    "id": 2,
+    "login": "magda.kwiatkowska",
+    "imie": "Magda",
+    "nazwisko": "Kwiatkowska",
+    "rola": 2,
+    "haslo": "magazyn2024",
+    "mail": "magda.kwiatkowska@email.com",
+    "avatar": "/images/avatars/avatar_02.png"
+  },
+  {
+    "id": 3,
+    "login": "anna.kwiatkowska",
+    "imie": "Anna",
+    "nazwisko": "Kwiatkowska",
+    "rola": 3,
+    "haslo": "wspolpraca",
+    "mail": "anna.kwiatkowska@email.com",
+    "avatar": "/images/avatars/avatar_03.png"
+  },
+  {
+    "id": 4,
+    "login": "piotr.nowak",
+    "imie": "Piotr",
+    "nazwisko": "Nowak",
+    "rola": 2,
+    "haslo": "nowak2024",
+    "mail": "piotr.nowak@company.pl",
+    "avatar": "/images/avatars/avatar_04.png"
+  },
+  {
+    "id": 5,
+    "login": "tomasz.jankowski",
+    "imie": "Tomasz",
+    "nazwisko": "Jankowski",
+    "rola": 3,
+    "haslo": "logistyka",
+    "mail": "tomasz.j@logistics.com",
+    "avatar": "/images/avatars/avatar_05.png"
+  },
+  {
+    "id": 6,
+    "login": "michal.dabrowski",
+    "imie": "Michał",
+    "nazwisko": "Dąbrowski",
+    "rola": 3,
+    "haslo": "fotografia",
+    "mail": "michal.dabrowski@photo.com",
+    "avatar": "/images/avatars/avatar_06.png"
+  },
+  {
+    "id": 7,
+    "login": "joanna.lewandowska",
+    "imie": "Joanna",
+    "nazwisko": "Lewandowska",
+    "rola": 3,
+    "haslo": "catering",
+    "mail": "asia.lewandowska@catering.pl",
+    "avatar": "/images/avatars/avatar_07.png"
+  },
+  {
+    "id": 8,
+    "login": "rafal.wozniak",
+    "imie": "Rafał",
+    "nazwisko": "Woźniak",
+    "rola": 3,
+    "haslo": "technik",
+    "mail": "rafal.wozniak@tech.pl",
+    "avatar": "/images/avatars/avatar_08.png"
+  },
+  {
+    "id": 9,
+    "login": "agnieszka.kaminska",
+    "imie": "Agnieszka",
+    "nazwisko": "Kamińska",
+    "rola": 2,
+    "haslo": "planning",
+    "mail": "agnieszka.kaminska@planning.com",
+    "avatar": "/images/avatars/avatar_09.png"
+  },
+  {
+    "id": 10,
+    "login": "lukasz.szymanski",
+    "imie": "Łukasz",
+    "nazwisko": "Szymański",
+    "rola": 3,
+    "haslo": "rental",
+    "mail": "lukasz.szymanski@rental.pl",
+    "avatar": "/images/avatars/avatar_10.png"
+  },
+  {
+    "id": 11,
+    "login": "katarzyna.zielinska",
+    "imie": "Katarzyna",
+    "nazwisko": "Zielińska",
+    "rola": 5,
+    "haslo": "design",
+    "mail": "kasia.zielinska@design.pl",
+    "avatar": "/images/avatars/avatar_11.png"
+  },
+  {
+    "login": "marek.wisniewski",
+    "imie": "Marek",
+    "nazwisko": "Wiśniewski",
+    "rola": 1,
+    "haslo": "admin2024",
+    "mail": "marek.wisniewski@admin.pl",
+    "avatar": "/images/avatars/avatar_12.png"
+  }
+] 

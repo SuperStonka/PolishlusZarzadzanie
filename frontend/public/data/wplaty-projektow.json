@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "projektId": 1,
+    "data": "2024-06-01",
+    "kwota": 2000,
+    "kto": "Jan Kowalski",
+    "forma": "przelew",
+    "uwagi": "Zaliczka",
+    "maFakture": true,
+    "numerFaktury": "FV/2024/001"
+  },
+  {
+    "id": 2,
+    "projektId": 1,
+    "data": "2024-06-10",
+    "kwota": 3000,
+    "kto": "Anna Nowak",
+    "forma": "gotowka",
+    "uwagi": "Druga wpłata",
+    "maFakture": false,
+    "numerFaktury": ""
+  },
+  {
+    "id": 3,
+    "projektId": 2,
+    "data": "2024-06-05",
+    "kwota": 1500,
+    "kto": "Piotr Zieliński",
+    "forma": "przelew",
+    "uwagi": "Całość",
+    "maFakture": true,
+    "numerFaktury": "FV/2024/012"
+  }
+] 

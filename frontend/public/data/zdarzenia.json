@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "type": "new_event",
+    "title": "Nowe zlecenie",
+    "message": "Dodano nowe zlecenie do systemu",
+    "data": {
+      "numer": "WE-2024-003",
+      "nazwa": "Wesele Anny i Michała",
+      "data": "2024-12-20",
+      "lokalizacja": "Hotel Marriott, Warszawa"
+    },
+    "czas": "2024-12-15T10:30:00.000Z",
+    "priority": "high"
+  },
+  {
+    "id": 2,
+    "type": "chat_message",
+    "title": "Nowa wiadomość w czacie",
+    "message": "Otrzymano nową wiadomość w evencie",
+    "data": {
+      "userName": "Anna Nowak",
+      "eventName": "WE-2024-001 - Wesele"
+    },
+    "czas": "2024-12-15T11:30:00.000Z",
+    "priority": "medium"
+  },
+  {
+    "id": 3,
+    "type": "calendar_reminder",
+    "title": "Zbliżające się wydarzenie",
+    "message": "Przypomnienie o nadchodzącym evencie",
+    "data": {
+      "eventName": "UR-2024-002 - Urodziny 8-latka",
+      "daysUntil": 2
+    },
+    "czas": "2024-12-15T12:00:00.000Z",
+    "priority": "high"
+  },
+  {
+    "id": 4,
+    "type": "system_alert",
+    "title": "Aktualizacja systemu",
+    "message": "System został zaktualizowany do najnowszej wersji",
+    "data": {},
+    "czas": "2024-12-15T09:00:00.000Z",
+    "priority": "low"
+  },
+  {
+    "id": 5,
+    "type": "new_event",
+    "title": "Nowe zlecenie",
+    "message": "Dodano nowe zlecenie do systemu",
+    "data": {
+      "numer": "KO-2024-005",
+      "nazwa": "Konferencja Tech Summit",
+      "data": "2024-12-25",
+      "lokalizacja": "Centrum Kongresowe ICE, Kraków"
+    },
+    "czas": "2024-12-14T15:30:00.000Z",
+    "priority": "medium"
+  },
+  {
+    "id": 6,
+    "type": "chat_message",
+    "title": "Nowa wiadomość w czacie",
+    "message": "Otrzymano nową wiadomość w evencie",
+    "data": {
+      "userName": "Piotr Kowalczyk",
+      "eventName": "UR-2024-004 - Urodziny"
+    },
+    "czas": "2024-12-13T16:45:00.000Z",
+    "priority": "low"
+  },
+  {
+    "id": 7,
+    "type": "calendar_reminder",
+    "title": "Zbliżające się wydarzenie",
+    "message": "Przypomnienie o nadchodzącym evencie",
+    "data": {
+      "eventName": "WE-2024-006 - Wesele Karoliny i Piotra",
+      "daysUntil": 5
+    },
+    "czas": "2024-12-12T14:20:00.000Z",
+    "priority": "medium"
+  },
+  {
+    "id": 8,
+    "type": "system_alert",
+    "title": "Backup systemu",
+    "message": "Automatyczny backup systemu został wykonany pomyślnie",
+    "data": {},
+    "czas": "2024-12-12T02:00:00.000Z",
+    "priority": "low"
+  },
+  {
+    "id": 9,
+    "type": "new_event",
+    "title": "Nowe zlecenie",
+    "message": "Dodano nowe zlecenie do systemu",
+    "data": {
+      "numer": "UR-2024-007",
+      "nazwa": "Urodziny 15-latka",
+      "data": "2024-12-30",
+      "lokalizacja": "Dom prywatny, Wrocław"
+    },
+    "czas": "2024-12-11T13:15:00.000Z",
+    "priority": "medium"
+  },
+  {
+    "id": 10,
+    "type": "chat_message",
+    "title": "Nowa wiadomość w czacie",
+    "message": "Otrzymano nową wiadomość w evencie",
+    "data": {
+      "userName": "Maria Wiśniewska",
+      "eventName": "KO-2024-005 - Konferencja"
+    },
+    "czas": "2024-12-11T10:30:00.000Z",
+    "priority": "medium"
+  }
+] 

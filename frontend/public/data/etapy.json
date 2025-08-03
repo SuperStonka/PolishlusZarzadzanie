@@ -1,0 +1,9 @@
+[
+  { "id": 1, "nazwa": "Nowe", "opis": "Nowo utworzony event, oczekuje na dalsze działania." },
+  { "id": 2, "nazwa": "Do spakowania", "opis": "Event oczekuje na spakowanie niezbędnych materiałów." },
+  { "id": 3, "nazwa": "W trakcie pakowania", "opis": "Trwa pakowanie materiałów na event." },
+  { "id": 4, "nazwa": "Montaż", "opis": "Trwa montaż na miejscu eventu." },
+  { "id": 5, "nazwa": "Do demontażu", "opis": "Event zakończony, oczekuje na demontaż." },
+  { "id": 6, "nazwa": "W trakcie demontażu", "opis": "Trwa demontaż po evencie." },
+  { "id": 7, "nazwa": "Magazyn", "opis": "Materiały wróciły do magazynu, event zamknięty." }
+] 

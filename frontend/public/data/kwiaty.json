@@ -1,0 +1,302 @@
+[
+  {
+    "id": 1,
+    "nazwa": "Róża",
+    "odmiana": "czerwona",
+    "kolor": "czerwony",
+    "wysokosc": 60,
+    "cena": 8.50,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_01.jpg",
+    "dostawcaId": "d1"
+  },
+  {
+    "id": 2,
+    "nazwa": "Tulipan",
+    "odmiana": "żółty",
+    "kolor": "żółty",
+    "wysokosc": 45,
+    "cena": 4.20,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_02.jpg",
+    "dostawcaId": "d2"
+  },
+  {
+    "id": 3,
+    "nazwa": "Gerbera",
+    "odmiana": "pomarańczowa",
+    "kolor": "pomarańczowy",
+    "wysokosc": 35,
+    "cena": 6.75,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_03.jpg",
+    "dostawcaId": "d3"
+  },
+  {
+    "id": 4,
+    "nazwa": "Lilia",
+    "odmiana": "biała",
+    "kolor": "biały",
+    "wysokosc": 80,
+    "cena": 12.30,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_04.jpg",
+    "dostawcaId": "d4"
+  },
+  {
+    "id": 5,
+    "nazwa": "Chryzantema",
+    "odmiana": "fioletowa",
+    "kolor": "fioletowy",
+    "wysokosc": 50,
+    "cena": 7.90,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_05.jpg",
+    "dostawcaId": "d5"
+  },
+  {
+    "id": 6,
+    "nazwa": "Goździk",
+    "odmiana": "różowy",
+    "kolor": "różowy",
+    "wysokosc": 30,
+    "cena": 5.60,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_06.jpg",
+    "dostawcaId": "d6"
+  },
+  {
+    "id": 7,
+    "nazwa": "Iris",
+    "odmiana": "niebieski",
+    "kolor": "niebieski",
+    "wysokosc": 70,
+    "cena": 9.40,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_07.jpg",
+    "dostawcaId": "d7"
+  },
+  {
+    "id": 8,
+    "nazwa": "Słonecznik",
+    "odmiana": "żółty",
+    "kolor": "żółty",
+    "wysokosc": 150,
+    "cena": 11.80,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_08.jpg",
+    "dostawcaId": "d8"
+  },
+  {
+    "id": 9,
+    "nazwa": "Anthurium",
+    "odmiana": "czerwone",
+    "kolor": "czerwony",
+    "wysokosc": 40,
+    "cena": 15.50,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_09.jpg",
+    "dostawcaId": "d9"
+  },
+  {
+    "id": 10,
+    "nazwa": "Piwonia",
+    "odmiana": "różowa",
+    "kolor": "różowy",
+    "wysokosc": 90,
+    "cena": 18.90,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_10.jpg",
+    "dostawcaId": "d10"
+  },
+  {
+    "id": 11,
+    "nazwa": "Dalia",
+    "odmiana": "bordowa",
+    "kolor": "bordowy",
+    "wysokosc": 75,
+    "cena": 13.70,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_11.jpg",
+    "dostawcaId": "d11"
+  },
+  {
+    "id": 12,
+    "nazwa": "Frezja",
+    "odmiana": "biała",
+    "kolor": "biały",
+    "wysokosc": 25,
+    "cena": 6.30,
+    "zdjecie": "",
+    "dostawcaId": "d12"
+  },
+  {
+    "id": 13,
+    "nazwa": "Alstroemeria",
+    "odmiana": "kolorowa",
+    "kolor": "mieszany",
+    "wysokosc": 55,
+    "cena": 8.90,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_12.jpg",
+    "dostawcaId": "d13"
+  },
+  {
+    "id": 14,
+    "nazwa": "Orchidea",
+    "odmiana": "biała",
+    "kolor": "biały",
+    "wysokosc": 65,
+    "cena": 25.60,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_13.jpg",
+    "dostawcaId": "d14"
+  },
+  {
+    "id": 15,
+    "nazwa": "Gipsówka",
+    "odmiana": "biała",
+    "kolor": "biały",
+    "wysokosc": 20,
+    "cena": 4.50,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_14.jpg",
+    "dostawcaId": "d15"
+  },
+  {
+    "id": 16,
+    "nazwa": "Róża",
+    "odmiana": "różowa",
+    "kolor": "różowy",
+    "wysokosc": 55,
+    "cena": 7.80,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_15.jpg",
+    "dostawcaId": "d16"
+  },
+  {
+    "id": 17,
+    "nazwa": "Protea",
+    "odmiana": "egzotyczna",
+    "kolor": "różowy",
+    "wysokosc": 85,
+    "cena": 22.40,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_16.jpg",
+    "dostawcaId": "d17"
+  },
+  {
+    "id": 18,
+    "nazwa": "Hiacynt",
+    "odmiana": "niebieski",
+    "kolor": "niebieski",
+    "wysokosc": 30,
+    "cena": 9.20,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_17.jpg",
+    "dostawcaId": "d18"
+  },
+  {
+    "id": 19,
+    "nazwa": "Kalla",
+    "odmiana": "fioletowa",
+    "kolor": "fioletowy",
+    "wysokosc": 60,
+    "cena": 14.30,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_18.jpg",
+    "dostawcaId": "d19"
+  },
+  {
+    "id": 20,
+    "nazwa": "Lawenda",
+    "odmiana": "fioletowa",
+    "kolor": "fioletowy",
+    "wysokosc": 40,
+    "cena": 8.10,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_19.jpg",
+    "dostawcaId": "d20"
+  },
+  {
+    "id": 21,
+    "nazwa": "Eustoma",
+    "odmiana": "biała",
+    "kolor": "biały",
+    "wysokosc": 70,
+    "cena": 11.90,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_20.jpg",
+    "dostawcaId": "d21"
+  },
+  {
+    "id": 22,
+    "nazwa": "Cyklamena",
+    "odmiana": "różowa",
+    "kolor": "różowy",
+    "wysokosc": 25,
+    "cena": 16.70,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_21.jpg",
+    "dostawcaId": "d22"
+  },
+  {
+    "id": 23,
+    "nazwa": "Strelicja",
+    "odmiana": "pomarańczowa",
+    "kolor": "pomarańczowy",
+    "wysokosc": 120,
+    "cena": 28.50,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_22.jpg",
+    "dostawcaId": "d23"
+  },
+  {
+    "id": 24,
+    "nazwa": "Anemone",
+    "odmiana": "biały",
+    "kolor": "biały",
+    "wysokosc": 35,
+    "cena": 7.40,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_23.jpg",
+    "dostawcaId": "d24"
+  },
+  {
+    "id": 25,
+    "nazwa": "Ranunculus",
+    "odmiana": "żółty",
+    "kolor": "żółty",
+    "wysokosc": 40,
+    "cena": 9.80,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_24.jpg",
+    "dostawcaId": "d25"
+  },
+  {
+    "id": 26,
+    "nazwa": "Hydrangea",
+    "odmiana": "niebieska",
+    "kolor": "niebieski",
+    "wysokosc": 100,
+    "cena": 19.60,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_25.jpg",
+    "dostawcaId": "d26"
+  },
+  {
+    "id": 27,
+    "nazwa": "Delfinium",
+    "odmiana": "niebieskie",
+    "kolor": "niebieski",
+    "wysokosc": 180,
+    "cena": 13.20,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_01.jpg",
+    "dostawcaId": "d27"
+  },
+  {
+    "id": 28,
+    "nazwa": "Amaryllis",
+    "odmiana": "czerwony",
+    "kolor": "czerwony",
+    "wysokosc": 50,
+    "cena": 21.90,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_02.jpg",
+    "dostawcaId": "d28"
+  },
+  {
+    "id": 29,
+    "nazwa": "Godetia",
+    "odmiana": "różowa",
+    "kolor": "różowy",
+    "wysokosc": 45,
+    "cena": 6.90,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_03.jpg",
+    "dostawcaId": "d29"
+  },
+  {
+    "id": 30,
+    "nazwa": "Lisianthus",
+    "odmiana": "fioletowy",
+    "kolor": "fioletowy",
+    "wysokosc": 65,
+    "cena": 12.80,
+    "zdjecie": "/images/produkty_kwiaty/kwiat_04.jpg",
+    "dostawcaId": "d30"
+  }
+] 
