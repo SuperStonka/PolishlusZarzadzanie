@@ -20,7 +20,7 @@ JWT_SECRET=polishlus_production_secret_key_2024
 JWT_EXPIRES_IN=24h
 
 # CORS Configuration
-CORS_ORIGIN=https://your-domain.com
+CORS_ORIGIN=http://polishlus.arstudio.atthost24.pl
 
 # File Upload Configuration
 UPLOAD_PATH=./uploads
@@ -50,4 +50,4 @@ echo ""
 echo "Next steps:"
 echo "1. Update CORS_ORIGIN in .env with your actual domain"
 echo "2. Start the server: npm run start:prod"
-echo "3. Test the API: curl https://your-domain.com/api/health" 
+echo "3. Test the API: curl http://polishlus.arstudio.atthost24.pl/api/health" 
