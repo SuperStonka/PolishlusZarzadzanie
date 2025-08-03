@@ -93,23 +93,23 @@ async function migrateData() {
       );
     }
 
-    // Migrate flowers
-    console.log('🌸 Migrating flowers...');
-    const kwiaty = await readJsonFile(path.join(dataPath, 'kwiaty.json'));
-    for (const kwiat of kwiaty) {
-      await db.query(
-        'INSERT INTO kwiaty (id, nazwa, kolor, cena, dostawca_id) VALUES ($1, $2, $3, $4, $5) ON CONFLICT (id) DO NOTHING',
-        [kwiat.id, kwiat.nazwa, kwiat.kolor, kwiat.cena, kwiat.dostawcaId]
-      );
-    }
-
-    // Migrate flower suppliers
+    // Migrate flower suppliers FIRST (before flowers)
     console.log('🏪 Migrating flower suppliers...');
     const dostawcyKwiatow = await readJsonFile(path.join(dataPath, 'dostawcy-kwiatow.json'));
     for (const dostawca of dostawcyKwiatow) {
       await db.query(
         'INSERT INTO dostawcy_kwiatow (id, nazwa, telefon, email, adres) VALUES ($1, $2, $3, $4, $5) ON CONFLICT (id) DO NOTHING',
         [dostawca.id, dostawca.nazwa, dostawca.telefon, dostawca.mail, `${dostawca.ulica}, ${dostawca.kodPocztowy} ${dostawca.miasto}`]
+      );
+    }
+
+    // Migrate flowers AFTER suppliers
+    console.log('🌸 Migrating flowers...');
+    const kwiaty = await readJsonFile(path.join(dataPath, 'kwiaty.json'));
+    for (const kwiat of kwiaty) {
+      await db.query(
+        'INSERT INTO kwiaty (id, nazwa, kolor, cena, dostawca_id) VALUES ($1, $2, $3, $4, $5) ON CONFLICT (id) DO NOTHING',
+        [kwiat.id, kwiat.nazwa, kwiat.kolor, kwiat.cena, kwiat.dostawcaId]
       );
     }
 
