@@ -4,8 +4,19 @@ const { authenticateToken, isUser } = require('../middleware/auth');
 
 const router = express.Router();
 
+// Get product categories
+router.get('/kategorie-produktow', async (req, res) => {
+  try {
+    const categories = await db.query('SELECT * FROM kategorie_produktow ORDER BY nazwa ASC');
+    res.json(categories.rows);
+  } catch (error) {
+    console.error('Get product categories error:', error);
+    res.status(500).json({ error: 'Failed to get product categories' });
+  }
+});
+
 // Get all products
-router.get('/', authenticateToken, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const { page = 1, limit = 10, search, category } = req.query;
     const offset = (page - 1) * limit;

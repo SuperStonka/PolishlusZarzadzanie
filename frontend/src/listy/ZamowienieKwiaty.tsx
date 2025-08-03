@@ -378,7 +378,7 @@ const ZamowienieKwiaty: React.FC = () => {
         5: { cellWidth: 50, halign: 'center' }, // Wysokość
         6: { cellWidth: 120, halign: 'left', fontSize: 6 }
       },
-      didDrawCell: data => {
+      didDrawCell: (data: any) => {
         doc.setFont('helvetica', 'normal');
         // Zdjęcie
         if (data.column.index === 1 && data.section === 'body') {

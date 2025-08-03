@@ -4,7 +4,18 @@ const { authenticateToken, isUser } = require('../middleware/auth');
 
 const router = express.Router();
 
-router.get('/', authenticateToken, async (req, res) => {
+// Get positions
+router.get('/stanowiska', async (req, res) => {
+  try {
+    const positions = await db.query('SELECT * FROM stanowiska ORDER BY nazwa ASC');
+    res.json(positions.rows);
+  } catch (error) {
+    console.error('Get positions error:', error);
+    res.status(500).json({ error: 'Failed to get positions' });
+  }
+});
+
+router.get('/', async (req, res) => {
   try {
     const employees = await db.query(`
       SELECT p.*, s.nazwa as stanowisko_nazwa 

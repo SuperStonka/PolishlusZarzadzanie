@@ -1,0 +1,22 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ /index.html [QSA,L]
+
+# Passenger configuration
+PassengerNodejs /usr/bin/node
+PassengerAppRoot /home/00887440/domains/polishlus.arstudio.atthost24.pl/public_html/backend
+PassengerAppType node
+PassengerStartupFile src/server.js
+PassengerAppEnv production
+PassengerLogFile /home/00887440/domains/polishlus.arstudio.atthost24.pl/public_html/backend/passenger.log
+
+# Security headers
+Header always set X-Content-Type-Options nosniff
+Header always set X-Frame-Options DENY
+Header always set X-XSS-Protection "1; mode=block"
+
+# CORS headers
+Header always set Access-Control-Allow-Origin "http://polishlus.arstudio.atthost24.pl"
+Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+Header always set Access-Control-Allow-Headers "Content-Type, Authorization"
+Header always set Access-Control-Allow-Credentials "true" 

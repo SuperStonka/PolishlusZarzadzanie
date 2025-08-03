@@ -28,6 +28,7 @@ import ListaGrupUprawnien from '../listy/ListaGrupUprawnien';
 import ZamowienieKwiaty from '../listy/ZamowienieKwiaty';
 import ListaDostawcowKwiatow from '../listy/ListaDostawcowKwiatow';
 import FormyRozliczen from '../listy/FormyRozliczen';
+import ErrorBoundary from '../components/ErrorBoundary';
 import '../styles/App.css';
 
 interface TerminyProjekt {
@@ -329,24 +330,26 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="app">
-      <Sidebar
-        currentView={currentView}
-        currentList={currentList}
-        onViewChange={handleViewChange}
-        onListClick={handleListClick}
-        projektStats={projektStats}
-        hasNewProjekty={hasNewProjekty}
-        hasNewMessages={hasNewMessages}
-        hasNewNotifications={hasNewNotifications}
-      />
-      <div className="main-content">
-        <Header />
-        <div className="content">
-          {renderContent()}
+    <ErrorBoundary>
+      <div className="app">
+        <Sidebar
+          currentView={currentView}
+          currentList={currentList}
+          onViewChange={handleViewChange}
+          onListClick={handleListClick}
+          projektStats={projektStats}
+          hasNewProjekty={hasNewProjekty}
+          hasNewMessages={hasNewMessages}
+          hasNewNotifications={hasNewNotifications}
+        />
+        <div className="main-content">
+          <Header />
+          <div className="content">
+            {renderContent()}
+          </div>
         </div>
       </div>
-    </div>
+    </ErrorBoundary>
   );
 };
 

@@ -57,7 +57,7 @@ const ListaKwiatow: React.FC = () => {
       
       const [kwiatyData, dostawcyData] = await Promise.all([
         api.getFlowers(),
-        api.get('/dostawcy-kwiatow') // Assuming this endpoint exists
+        api.getFlowerSuppliers()
       ]);
       
       setKwiaty(kwiatyData as Kwiat[]);

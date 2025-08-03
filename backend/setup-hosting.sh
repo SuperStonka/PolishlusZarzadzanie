@@ -20,7 +20,7 @@ JWT_SECRET=polishlus_production_secret_key_2024
 JWT_EXPIRES_IN=24h
 
 # CORS Configuration
-CORS_ORIGIN=http://polishlus.arstudio.atthost24.pl
+CORS_ORIGIN=http://polishlus.arstudio.atthost24.pl,http://localhost:3000
 
 # File Upload Configuration
 UPLOAD_PATH=./uploads
@@ -37,7 +37,11 @@ npm install --production
 mkdir -p uploads
 chmod 755 uploads
 
-echo "✅ Created uploads directory"
+# Create tmp directory for Passenger
+mkdir -p tmp
+chmod 755 tmp
+
+echo "✅ Created uploads and tmp directories"
 
 # Setup database
 echo "🗄️ Setting up database..."
@@ -48,6 +52,7 @@ echo "✅ Database setup completed"
 echo "🎉 Setup completed successfully!"
 echo ""
 echo "Next steps:"
-echo "1. Update CORS_ORIGIN in .env with your actual domain"
-echo "2. Start the server: npm run start:prod"
-echo "3. Test the API: curl http://polishlus.arstudio.atthost24.pl/api/health" 
+echo "1. Upload files to hosting"
+echo "2. Set file permissions: chmod 755 uploads/ tmp/"
+echo "3. Restart Passenger: touch tmp/restart.txt"
+echo "4. Test the API: curl http://polishlus.arstudio.atthost24.pl/api/health" 

@@ -4,8 +4,19 @@ const { authenticateToken, isUser } = require('../middleware/auth');
 
 const router = express.Router();
 
+// Get flower suppliers
+router.get('/dostawcy-kwiatow', async (req, res) => {
+  try {
+    const suppliers = await db.query('SELECT * FROM dostawcy_kwiatow ORDER BY nazwa ASC');
+    res.json(suppliers.rows);
+  } catch (error) {
+    console.error('Get flower suppliers error:', error);
+    res.status(500).json({ error: 'Failed to get flower suppliers' });
+  }
+});
+
 // Get all flowers
-router.get('/', authenticateToken, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const flowers = await db.query('SELECT * FROM kwiaty WHERE aktywny = true ORDER BY nazwa ASC');
     res.json(flowers.rows);

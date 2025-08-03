@@ -72,7 +72,7 @@ const ListaProduktow: React.FC = () => {
       
       const [produktyData, kategorieData] = await Promise.all([
         api.getProducts(),
-        api.get('/kategorie-produktow') // Assuming this endpoint exists
+        api.getProductCategories()
       ]);
       
       setProdukty(produktyData as Produkt[]);

@@ -10,6 +10,7 @@
     "migrate": "node src/utils/migrateData.js",
     "setup:prod": "NODE_ENV=production node src/utils/setupDatabase.js",
     "start:prod": "NODE_ENV=production node src/server.js",
+    "start:passenger": "NODE_ENV=production node src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": ["polishlus", "packing", "events", "api"],

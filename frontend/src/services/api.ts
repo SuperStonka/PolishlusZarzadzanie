@@ -1,5 +1,5 @@
 // API Configuration
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://polishlus.arstudio.atthost24.pl/api';
 
 // API Service
 class ApiService {
@@ -104,6 +104,10 @@ class ApiService {
     return this.get('/products');
   }
 
+  async getProductCategories() {
+    return this.get('/products/kategorie-produktow');
+  }
+
   async getProduct(id: number) {
     return this.get(`/products/${id}`);
   }
@@ -125,6 +129,10 @@ class ApiService {
     return this.get('/flowers');
   }
 
+  async getFlowerSuppliers() {
+    return this.get('/flowers/dostawcy-kwiatow');
+  }
+
   async getFlower(id: number) {
     return this.get(`/flowers/${id}`);
   }
@@ -144,6 +152,10 @@ class ApiService {
   // Employees
   async getEmployees() {
     return this.get('/employees');
+  }
+
+  async getPositions() {
+    return this.get('/employees/stanowiska');
   }
 
   // Contacts

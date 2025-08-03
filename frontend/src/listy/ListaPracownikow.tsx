@@ -98,7 +98,7 @@ const ListaPracownikow: React.FC = () => {
         const [pracownicyData, uzytkownicyData, stanowiskaData] = await Promise.all([
           api.getEmployees(),
           api.getUsers(),
-          api.get('/stanowiska') // Assuming this endpoint exists
+          api.getPositions()
         ]);
         
         setPracownicy(pracownicyData as Pracownik[]);
