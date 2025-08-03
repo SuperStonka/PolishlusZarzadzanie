@@ -1,0 +1,6 @@
+[
+  { "id": 1, "nazwa": "Karton", "typ": "Standard" },
+  { "id": 2, "nazwa": "Paleta", "typ": "Euro" },
+  { "id": 3, "nazwa": "Worek", "typ": "Big Bag" },
+  { "id": 4, "nazwa": "Skrzynia", "typ": "Drewniana" }
+] 

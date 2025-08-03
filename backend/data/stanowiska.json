@@ -1,0 +1,16 @@
+[
+  { "id": 1, "nazwa": "Florysta", "opis": "Przygotowuje kompozycje kwiatowe" },
+  { "id": 2, "nazwa": "Złota rączka", "opis": "Naprawa i montaż sprzętu" },
+  { "id": 3, "nazwa": "Dekorator", "opis": "Ustawienie dekoracji" },
+  { "id": 4, "nazwa": "Kierowca", "opis": "Transport materiałów" },
+  { "id": 5, "nazwa": "Koordynator eventów", "opis": "Organizacja i koordynacja wydarzeń" },
+  { "id": 6, "nazwa": "Dyrektor sprzedaży", "opis": "Zarządzanie sprzedażą i kontraktami B2B" },
+  { "id": 7, "nazwa": "Florysta główny", "opis": "Główny specjalista od kompozycji kwiatowych" },
+  { "id": 8, "nazwa": "Logistyk", "opis": "Zarządzanie transportem i dostawami" },
+  { "id": 9, "nazwa": "Designer", "opis": "Projektowanie aranżacji i wizualizacji" },
+  { "id": 10, "nazwa": "Fotograf", "opis": "Dokumentacja fotograficzna eventów" },
+  { "id": 11, "nazwa": "Catering manager", "opis": "Zarządzanie usługami cateringowymi" },
+  { "id": 12, "nazwa": "Technik", "opis": "Obsługa techniczna oświetlenia i nagłośnienia" },
+  { "id": 13, "nazwa": "Wedding planner", "opis": "Kompleksowa organizacja wesel" },
+  { "id": 14, "nazwa": "Wypożyczalnia", "opis": "Dostawca mebli i dekoracji do wynajęcia" }
+] 

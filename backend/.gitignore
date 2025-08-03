@@ -70,4 +70,8 @@ uploads/
 
 # Temporary files
 tmp/
-temp/ 
+temp/
+
+# Data directory (but keep JSON files for migration)
+data/*
+!data/*.json 

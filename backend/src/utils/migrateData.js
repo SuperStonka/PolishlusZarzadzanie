@@ -19,12 +19,12 @@ async function migrateData() {
   try {
     console.log('🚀 Starting data migration...');
 
-    // Read JSON files from frontend
-    const frontendDataPath = path.join(__dirname, '../../frontend/public/data');
+    // Read JSON files from backend data directory
+    const dataPath = path.join(__dirname, '../../data');
     
     // Migrate users
     console.log('📝 Migrating users...');
-    const users = await readJsonFile(path.join(frontendDataPath, 'uzytkownicy.json'));
+    const users = await readJsonFile(path.join(dataPath, 'uzytkownicy.json'));
     for (const user of users) {
       const hashedPassword = await bcrypt.hash('password123', 10);
       await db.query(
@@ -35,7 +35,7 @@ async function migrateData() {
 
     // Migrate permission groups
     console.log('👥 Migrating permission groups...');
-    const grupyUprawnien = await readJsonFile(path.join(frontendDataPath, 'grupyUprawnien.json'));
+    const grupyUprawnien = await readJsonFile(path.join(dataPath, 'grupyUprawnien.json'));
     for (const grupa of grupyUprawnien) {
       await db.query(
         'INSERT INTO grupy_uprawnien (nazwa, opis) VALUES ($1, $2) ON CONFLICT (id) DO NOTHING',
@@ -45,7 +45,7 @@ async function migrateData() {
 
     // Migrate positions
     console.log('💼 Migrating positions...');
-    const stanowiska = await readJsonFile(path.join(frontendDataPath, 'stanowiska.json'));
+    const stanowiska = await readJsonFile(path.join(dataPath, 'stanowiska.json'));
     for (const stanowisko of stanowiska) {
       await db.query(
         'INSERT INTO stanowiska (nazwa, opis) VALUES ($1, $2) ON CONFLICT (id) DO NOTHING',
@@ -55,7 +55,7 @@ async function migrateData() {
 
     // Migrate employees
     console.log('👨‍💼 Migrating employees...');
-    const pracownicy = await readJsonFile(path.join(frontendDataPath, 'pracownicy.json'));
+    const pracownicy = await readJsonFile(path.join(dataPath, 'pracownicy.json'));
     for (const pracownik of pracownicy) {
       await db.query(
         'INSERT INTO pracownicy (imie, nazwisko, email, telefon, stanowisko_id, data_zatrudnienia) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT (id) DO NOTHING',
@@ -65,7 +65,7 @@ async function migrateData() {
 
     // Migrate contacts
     console.log('📞 Migrating contacts...');
-    const kontakty = await readJsonFile(path.join(frontendDataPath, 'kontakty.json'));
+    const kontakty = await readJsonFile(path.join(dataPath, 'kontakty.json'));
     for (const kontakt of kontakty) {
       await db.query(
         'INSERT INTO kontakty (imie, nazwisko, email, telefon, firma, stanowisko, adres) VALUES ($1, $2, $3, $4, $5, $6, $7) ON CONFLICT (id) DO NOTHING',
@@ -75,7 +75,7 @@ async function migrateData() {
 
     // Migrate product categories
     console.log('📦 Migrating product categories...');
-    const kategorieProduktow = await readJsonFile(path.join(frontendDataPath, 'kategorieProduktow.json'));
+    const kategorieProduktow = await readJsonFile(path.join(dataPath, 'kategorieProduktow.json'));
     for (const kategoria of kategorieProduktow) {
       await db.query(
         'INSERT INTO kategorie_produktow (nazwa, opis) VALUES ($1, $2) ON CONFLICT (id) DO NOTHING',
@@ -85,7 +85,7 @@ async function migrateData() {
 
     // Migrate products
     console.log('🛍️ Migrating products...');
-    const produkty = await readJsonFile(path.join(frontendDataPath, 'produkty.json'));
+    const produkty = await readJsonFile(path.join(dataPath, 'produkty.json'));
     for (const produkt of produkty) {
       await db.query(
         'INSERT INTO produkty (kod, nazwa, kategoria_id, opis, cena, jednostka) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT (kod) DO NOTHING',
@@ -95,7 +95,7 @@ async function migrateData() {
 
     // Migrate flowers
     console.log('🌸 Migrating flowers...');
-    const kwiaty = await readJsonFile(path.join(frontendDataPath, 'kwiaty.json'));
+    const kwiaty = await readJsonFile(path.join(dataPath, 'kwiaty.json'));
     for (const kwiat of kwiaty) {
       await db.query(
         'INSERT INTO kwiaty (nazwa, kolor, cena, dostawca_id) VALUES ($1, $2, $3, $4) ON CONFLICT (id) DO NOTHING',
@@ -105,7 +105,7 @@ async function migrateData() {
 
     // Migrate flower suppliers
     console.log('🏪 Migrating flower suppliers...');
-    const dostawcyKwiatow = await readJsonFile(path.join(frontendDataPath, 'dostawcy-kwiatow.json'));
+    const dostawcyKwiatow = await readJsonFile(path.join(dataPath, 'dostawcy-kwiatow.json'));
     for (const dostawca of dostawcyKwiatow) {
       await db.query(
         'INSERT INTO dostawcy_kwiatow (nazwa, telefon, email, adres) VALUES ($1, $2, $3, $4) ON CONFLICT (id) DO NOTHING',
@@ -115,7 +115,7 @@ async function migrateData() {
 
     // Migrate containers
     console.log('📦 Migrating containers...');
-    const pojemniki = await readJsonFile(path.join(frontendDataPath, 'pojemniki.json'));
+    const pojemniki = await readJsonFile(path.join(dataPath, 'pojemniki.json'));
     for (const pojemnik of pojemniki) {
       await db.query(
         'INSERT INTO pojemniki (nazwa, rozmiar, pojemnosc, material) VALUES ($1, $2, $3, $4) ON CONFLICT (id) DO NOTHING',
@@ -125,7 +125,7 @@ async function migrateData() {
 
     // Migrate rental companies
     console.log('🏢 Migrating rental companies...');
-    const wypozyczalnie = await readJsonFile(path.join(frontendDataPath, 'wypozyczalnie.json'));
+    const wypozyczalnie = await readJsonFile(path.join(dataPath, 'wypozyczalnie.json'));
     for (const wypozyczalnia of wypozyczalnie) {
       await db.query(
         'INSERT INTO wypozyczalnie (nazwa, telefon, email, adres) VALUES ($1, $2, $3, $4) ON CONFLICT (id) DO NOTHING',
@@ -135,7 +135,7 @@ async function migrateData() {
 
     // Migrate cost types
     console.log('💰 Migrating cost types...');
-    const typyKosztow = await readJsonFile(path.join(frontendDataPath, 'typy-kosztow.json'));
+    const typyKosztow = await readJsonFile(path.join(dataPath, 'typy-kosztow.json'));
     for (const typKosztu of typyKosztow) {
       await db.query(
         'INSERT INTO typy_kosztow (nazwa, powiazanie, jednostka) VALUES ($1, $2, $3) ON CONFLICT (id) DO NOTHING',
@@ -145,7 +145,7 @@ async function migrateData() {
 
     // Migrate cars
     console.log('🚗 Migrating cars...');
-    const samochody = await readJsonFile(path.join(frontendDataPath, 'samochody.json'));
+    const samochody = await readJsonFile(path.join(dataPath, 'samochody.json'));
     for (const samochod of samochody) {
       await db.query(
         'INSERT INTO samochody (model, numer_rejestracyjny, typ) VALUES ($1, $2, $3) ON CONFLICT (numer_rejestracyjny) DO NOTHING',
@@ -155,7 +155,7 @@ async function migrateData() {
 
     // Migrate events
     console.log('📅 Migrating events...');
-    const eventy = await readJsonFile(path.join(frontendDataPath, 'eventy.json'));
+    const eventy = await readJsonFile(path.join(dataPath, 'zdarzenia.json'));
     for (const event of eventy) {
       await db.query(
         'INSERT INTO eventy (numer, nazwa, data, lokalizacja, status, opis) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT (numer) DO NOTHING',
@@ -165,7 +165,7 @@ async function migrateData() {
 
     // Migrate products in events
     console.log('📦 Migrating products in events...');
-    const produktyWEventach = await readJsonFile(path.join(frontendDataPath, 'produkty-w-eventach.json'));
+    const produktyWEventach = await readJsonFile(path.join(dataPath, 'produkty-w-projekcie.json'));
     for (const produktWEvencie of produktyWEventach) {
       await db.query(
         'INSERT INTO produkty_w_eventach (event_id, produkt_id, ilosc, spakowane, zwrocone, uszkodzone, uwagi, wypozyczony, wypozyczalnia_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) ON CONFLICT (id) DO NOTHING',
@@ -185,7 +185,7 @@ async function migrateData() {
 
     // Migrate flowers in events
     console.log('🌸 Migrating flowers in events...');
-    const kwiatyWEventach = await readJsonFile(path.join(frontendDataPath, 'kwiaty-w-eventach.json'));
+    const kwiatyWEventach = await readJsonFile(path.join(dataPath, 'kwiaty-w-projekcie.json'));
     for (const kwiatWEvencie of kwiatyWEventach) {
       await db.query(
         'INSERT INTO kwiaty_w_eventach (event_id, kwiat_id, ilosc, spakowane, zwrocone, uszkodzone, uwagi) VALUES ($1, $2, $3, $4, $5, $6, $7) ON CONFLICT (id) DO NOTHING',
@@ -203,7 +203,7 @@ async function migrateData() {
 
     // Migrate event costs
     console.log('💰 Migrating event costs...');
-    const kosztyEventow = await readJsonFile(path.join(frontendDataPath, 'koszty-eventow.json'));
+    const kosztyEventow = await readJsonFile(path.join(dataPath, 'koszty-projektow.json'));
     for (const koszt of kosztyEventow) {
       await db.query(
         'INSERT INTO koszty_eventow (event_id, typ_kosztu_id, powiazany_element_id, powiazany_element_typ, ilosc, cena_netto, cena_brutto, wartosc_netto, wartosc_brutto, ma_fakture, numer_faktury) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) ON CONFLICT (id) DO NOTHING',
@@ -225,7 +225,7 @@ async function migrateData() {
 
     // Migrate chat messages
     console.log('💬 Migrating chat messages...');
-    const wiadomosciChat = await readJsonFile(path.join(frontendDataPath, 'eventChat.json'));
+    const wiadomosciChat = await readJsonFile(path.join(dataPath, 'projektChat.json'));
     for (const wiadomosc of wiadomosciChat) {
       await db.query(
         'INSERT INTO wiadomosci_chat (nadawca_id, odbiorca_id, tresc, zdjecia, timestamp) VALUES ($1, $2, $3, $4, $5) ON CONFLICT (id) DO NOTHING',

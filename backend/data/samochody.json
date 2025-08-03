@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "model": "Ford Transit",
+    "numer_rejestracyjny": "WA 12345",
+    "typ": "Dostawczy"
+  },
+  {
+    "id": 2,
+    "model": "Mercedes Sprinter",
+    "numer_rejestracyjny": "WA 67890",
+    "typ": "Dostawczy z windą"
+  },
+  {
+    "id": 3,
+    "model": "Volkswagen Crafter",
+    "numer_rejestracyjny": "WA 11111",
+    "typ": "Dostawczy"
+  },
+  {
+    "id": 4,
+    "model": "Fiat Ducato",
+    "numer_rejestracyjny": "WA 22222",
+    "typ": "Plandeka"
+  },
+  {
+    "id": 5,
+    "model": "Peugeot Boxer",
+    "numer_rejestracyjny": "WA 33333",
+    "typ": "Dostawczy"
+  },
+  {
+    "id": 6,
+    "model": "Renault Master",
+    "numer_rejestracyjny": "WA 44444",
+    "typ": "Dostawczy z windą"
+  },
+  {
+    "id": 7,
+    "model": "Iveco Daily",
+    "numer_rejestracyjny": "WA 55555",
+    "typ": "Plandeka"
+  },
+  {
+    "id": 8,
+    "model": "Citroen Jumper",
+    "numer_rejestracyjny": "WA 66666",
+    "typ": "Dostawczy"
+  },
+  {
+    "id": 9,
+    "model": "Skoda Octavia",
+    "numer_rejestracyjny": "WA 77777",
+    "typ": "Osobowy"
+  },
+  {
+    "id": 10,
+    "model": "Volkswagen Passat",
+    "numer_rejestracyjny": "WA 88888",
+    "typ": "Osobowy"
+  }
+] 

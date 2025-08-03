@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "nazwa": "Paliwo",
+    "powiazanie": "samochod",
+    "jednostka": "l."
+  },
+  {
+    "id": 2,
+    "nazwa": "Wynajem sprzętu",
+    "powiazanie": "wypozyczalnia",
+    "jednostka": "szt."
+  },
+  {
+    "id": 3,
+    "nazwa": "Materiały",
+    "powiazanie": "brak",
+    "jednostka": "szt."
+  },
+  {
+    "id": 4,
+    "nazwa": "Transport",
+    "powiazanie": "samochod",
+    "jednostka": "szt."
+  },
+  {
+    "id": 5,
+    "nazwa": "Catering",
+    "powiazanie": "kontakt",
+    "jednostka": "szt."
+  },
+  {
+    "id": 6,
+    "nazwa": "Dekoracje",
+    "powiazanie": "brak",
+    "jednostka": "szt."
+  },
+  {
+    "id": 7,
+    "nazwa": "Wynagrodzenia",
+    "powiazanie": "pracownik",
+    "jednostka": "szt."
+  },
+  {
+    "id": 8,
+    "nazwa": "Ubezpieczenie",
+    "powiazanie": "samochod",
+    "jednostka": "szt."
+  },
+  {
+    "id": 9,
+    "nazwa": "Marketing",
+    "powiazanie": "brak",
+    "jednostka": "szt."
+  },
+  {
+    "id": 10,
+    "nazwa": "Inne",
+    "powiazanie": "brak",
+    "jednostka": "szt."
+  }
+] 

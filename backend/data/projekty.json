@@ -1,0 +1,217 @@
+[
+  {
+    "id": 1,
+    "numer": "WE-2024-001",
+    "nazwa": "Eleganckie Wesele Vintage w Stylu Retro",
+    "data": "2024-06-15",
+    "lokalizacja": "Sala Weselna Elegancja, ul. Kwiatowa 12, Warszawa",
+    "zamawiajacy": "Anna Kowalska",
+    "kontaktZamawiajacy": {
+      "imie": "Anna",
+      "nazwisko": "Kowalska",
+      "telefon": "+48 601 234 567",
+      "email": "anna.kowalska@email.com",
+      "firma": "Dream Wedding Events"
+    },
+    "kontaktNaObiekcie": {
+      "imie": "Marcin",
+      "nazwisko": "Nowicki",
+      "telefon": "+48 605 789 123",
+      "email": "m.nowicki@elegancja.pl",
+      "stanowisko": "Kierownik sali"
+    },
+    "terminy": {
+      "pakowanie": {
+        "data": "2024-06-14",
+        "godzina": "08:00"
+      },
+      "demontaz": {
+        "data": "2024-06-16",
+        "godzina": "10:00"
+      },
+      "montaz": {
+        "dataOd": "2024-06-14",
+        "dataDo": "2024-06-15"
+      }
+    },
+    "status": "nowe",
+    "etapId": 2,
+    "uwagi": "Motyw przewodni: vintage, kolor przewodni: kremowy i różowy",
+    "utworzono": "2024-01-15",
+    "opis": "Eleganckie wesele w stylu vintage dla 150 gości",
+    "wartoscNetto": 12000,
+    "wartoscBrutto": 14760
+  },
+  {
+    "id": 2,
+    "numer": "UR-2024-002",
+    "nazwa": "Urodziny Superbohatera - Impreza dla Dzieci",
+    "data": "2024-07-22",
+    "lokalizacja": "Dom prywatny, ul. Słoneczna 5, Kraków",
+    "zamawiajacy": "Piotr Nowak",
+    "kontaktZamawiajacy": {
+      "imie": "Piotr",
+      "nazwisko": "Nowak",
+      "telefon": "+48 602 345 678",
+      "email": "piotr.nowak@gmail.com",
+      "firma": ""
+    },
+    "kontaktNaObiekcie": {
+      "imie": "Maria",
+      "nazwisko": "Nowak",
+      "telefon": "+48 602 345 679",
+      "email": "maria.nowak@gmail.com",
+      "stanowisko": "Gospodyni"
+    },
+    "terminy": {
+      "pakowanie": {
+        "data": "2024-07-21",
+        "godzina": "14:00"
+      },
+      "demontaz": {
+        "data": "2024-07-23",
+        "godzina": "09:00"
+      },
+      "montaz": {
+        "dataOd": "2024-07-22",
+        "dataDo": "2024-07-22"
+      }
+    },
+    "status": "zakonczone",
+    "etapId": 7,
+    "uwagi": "Impreza dla dzieci, motyw: superbohatery",
+    "utworzono": "2024-02-01",
+    "opis": "Urodziny 8-latka z motywem superbohaterów dla 20 dzieci",
+    "wartoscNetto": 2500,
+    "wartoscBrutto": 3075
+  },
+  {
+    "id": 3,
+    "numer": "KO-2024-003",
+    "nazwa": "Międzynarodowa Konferencja Technologiczna 2024",
+    "data": "2024-09-10",
+    "lokalizacja": "Hotel Business Center, ul. Biznesowa 20, Gdańsk",
+    "zamawiajacy": "Firma TechSolutions",
+    "kontaktZamawiajacy": {
+      "imie": "Magdalena",
+      "nazwisko": "Wiśniewska",
+      "telefon": "+48 603 456 789",
+      "email": "m.wisniewska@techsolutions.pl",
+      "firma": "TechSolutions Sp. z o.o."
+    },
+    "kontaktNaObiekcie": {
+      "imie": "Tomasz",
+      "nazwisko": "Kowalczyk",
+      "telefon": "+48 607 111 222",
+      "email": "t.kowalczyk@businesscenter.pl",
+      "stanowisko": "Menedżer eventów"
+    },
+    "terminy": {
+      "pakowanie": {
+        "data": "2024-09-09",
+        "godzina": "07:00"
+      },
+      "demontaz": {
+        "data": "2024-09-11",
+        "godzina": "16:00"
+      },
+      "montaz": {
+        "dataOd": "2024-09-09",
+        "dataDo": "2024-09-10"
+      }
+    },
+    "status": "w_trakcie",
+    "etapId": 4,
+    "uwagi": "Konferencja dla 200 osób, potrzebne tłumaczenie symultaniczne",
+    "utworzono": "2024-03-12",
+    "opis": "Międzynarodowa konferencja technologiczna z tłumaczeniem na 3 języki",
+    "wartoscNetto": 18000,
+    "wartoscBrutto": 22140
+  },
+  {
+    "id": 4,
+    "numer": "2023/004",
+    "nazwa": "Firma ABC - Event Integracyjny",
+    "data": "2024-08-05",
+    "lokalizacja": "Centrum Konferencyjne, ul. Przemysłowa 8, Poznań",
+    "zamawiajacy": "Jan Kowalczyk",
+    "kontaktZamawiajacy": {
+      "imie": "Jan",
+      "nazwisko": "Kowalczyk",
+      "telefon": "+48 604 567 890",
+      "email": "j.kowalczyk@firmaabc.pl",
+      "firma": "Firma ABC Sp. z o.o."
+    },
+    "kontaktNaObiekcie": {
+      "imie": "Ewa",
+      "nazwisko": "Malinowska",
+      "telefon": "+48 608 222 333",
+      "email": "e.malinowska@centrumkonf.pl",
+      "stanowisko": "Koordynator eventów"
+    },
+    "terminy": {
+      "pakowanie": {
+        "data": "2024-08-04",
+        "godzina": "10:00"
+      },
+      "demontaz": {
+        "data": "2024-08-06",
+        "godzina": "12:00"
+      },
+      "montaz": {
+        "dataOd": "2024-08-04",
+        "dataDo": "2024-08-05"
+      }
+    },
+    "status": "anulowane",
+    "etapId": 1,
+    "uwagi": "Event anulowany przez klienta - problemy organizacyjne",
+    "utworzono": "2024-04-01",
+    "opis": "Event integracyjny dla 80 pracowników firmy ABC",
+    "wartoscNetto": 8000,
+    "wartoscBrutto": 9840
+  },
+  {
+    "id": 5,
+    "numer": "WE-2024-005",
+    "nazwa": "Wesele w Stylu Rustykalnym",
+    "data": "2024-10-12",
+    "lokalizacja": "Dworek Pod Lipami, ul. Leśna 15, Zakopane",
+    "zamawiajacy": "Karolina Zielińska",
+    "kontaktZamawiajacy": {
+      "imie": "Karolina",
+      "nazwisko": "Zielińska",
+      "telefon": "+48 605 678 901",
+      "email": "k.zielinska@email.com",
+      "firma": ""
+    },
+    "kontaktNaObiekcie": {
+      "imie": "Andrzej",
+      "nazwisko": "Kowalski",
+      "telefon": "+48 609 333 444",
+      "email": "a.kowalski@dworekpodlipami.pl",
+      "stanowisko": "Właściciel"
+    },
+    "terminy": {
+      "pakowanie": {
+        "data": "2024-10-11",
+        "godzina": "09:00"
+      },
+      "demontaz": {
+        "data": "2024-10-13",
+        "godzina": "11:00"
+      },
+      "montaz": {
+        "dataOd": "2024-10-11",
+        "dataDo": "2024-10-12"
+      }
+    },
+    "status": "w_trakcie",
+    "etapId": 3,
+    "uwagi": "Motyw rustykalny, dekoracje z drewna i kwiatów polnych",
+    "utworzono": "2024-05-15",
+    "opis": "Wesele w stylu rustykalnym dla 120 gości w górskim dworku",
+    "wartoscNetto": 15000,
+    "wartoscBrutto": 18450
+  }
+] 

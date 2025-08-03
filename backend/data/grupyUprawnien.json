@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "nazwa": "Administrator",
+    "opis": "Pełne uprawnienia do zarządzania systemem",
+    "uprawnienia": {
+      "zarzadzanieProduktami": true,
+      "zarzadzaniePracownikami": true,
+      "zarzadzanieKontaktami": true,
+      "zarzadzanieEventami": true,
+      "zarzadzanieUzytkownikami": true,
+      "przegladanieRaportow": true,
+      "edycjaUstawien": true
+    },
+    "liczbaUzytkownikow": 2,
+    "aktywna": true
+  },
+  {
+    "id": 2,
+    "nazwa": "Kierownik",
+    "opis": "Uprawnienia do zarządzania zespołem i eventami",
+    "uprawnienia": {
+      "zarzadzanieProduktami": true,
+      "zarzadzaniePracownikami": true,
+      "zarzadzanieKontaktami": true,
+      "zarzadzanieEventami": true,
+      "zarzadzanieUzytkownikami": false,
+      "przegladanieRaportow": true,
+      "edycjaUstawien": false
+    },
+    "liczbaUzytkownikow": 3,
+    "aktywna": true
+  },
+  {
+    "id": 3,
+    "nazwa": "Pracownik",
+    "opis": "Podstawowe uprawnienia do przeglądania i edycji",
+    "uprawnienia": {
+      "zarzadzanieProduktami": false,
+      "zarzadzaniePracownikami": false,
+      "zarzadzanieKontaktami": true,
+      "zarzadzanieEventami": false,
+      "zarzadzanieUzytkownikami": false,
+      "przegladanieRaportow": true,
+      "edycjaUstawien": false
+    },
+    "liczbaUzytkownikow": 8,
+    "aktywna": true
+  },
+  {
+    "id": 4,
+    "nazwa": "Gość",
+    "opis": "Ograniczone uprawnienia tylko do przeglądania",
+    "uprawnienia": {
+      "zarzadzanieProduktami": false,
+      "zarzadzaniePracownikami": false,
+      "zarzadzanieKontaktami": false,
+      "zarzadzanieEventami": false,
+      "zarzadzanieUzytkownikami": false,
+      "przegladanieRaportow": false,
+      "edycjaUstawien": false
+    },
+    "liczbaUzytkownikow": 5,
+    "aktywna": false
+  },
+  {
+    "id": 5,
+    "nazwa": "Specjalista ds. produktów",
+    "opis": "Specjalistyczne uprawnienia do zarządzania produktami",
+    "uprawnienia": {
+      "zarzadzanieProduktami": true,
+      "zarzadzaniePracownikami": false,
+      "zarzadzanieKontaktami": false,
+      "zarzadzanieEventami": false,
+      "zarzadzanieUzytkownikami": false,
+      "przegladanieRaportow": true,
+      "edycjaUstawien": false
+    },
+    "liczbaUzytkownikow": 2,
+    "aktywna": true
+  }
+] 

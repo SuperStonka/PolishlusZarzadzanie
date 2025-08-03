@@ -1,0 +1,7 @@
+[
+  { "id": 1, "nazwa": "FV" },
+  { "id": 2, "nazwa": "Umowa - stawka godz." },
+  { "id": 3, "nazwa": "Blik - stawka godz." },
+  { "id": 4, "nazwa": "Umowa o pracę - stawka godz." },
+  { "id": 5, "nazwa": "Nadgodziny - kwota" }
+] 
